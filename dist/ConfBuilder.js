@@ -121,8 +121,11 @@ template:'cmp.ejs.jsx',
 target:hoc.componentRootDir+'/cmp.'+hoc.Name+'.js'},
 {
 template:'sty.cmp.ejs.js',
-target:hoc.componentRootDir+'/_Styles/sty.cmp.'+hoc.Name+'.js'},
-{
+target:hoc.componentRootDir+'/_Styles/sty.cmp.'+hoc.Name+'.js'}].
+
+concat(function(){
+if(hoc.level!==1){
+return[{
 template:'rdx.ejs.js',
 target:hoc.reduxRootDir+'/rdx.'+hoc.Name+'.js'},
 {
@@ -130,7 +133,12 @@ template:'sga.ejs.js',
 target:hoc.sagaRootDir+'/sga.'+hoc.Name+'.js'},
 {
 template:'api.ejs.js',
-target:hoc.apiRootDir+'/api.'+hoc.Name+'.js'}].
+target:hoc.apiRootDir+'/api.'+hoc.Name+'.js'}];
+
+}else{
+return[];
+}
+}()).
 map(function(job){return{job:job,props:{}};});
 
 }},{key:'createReduxStates',value:function createReduxStates(
