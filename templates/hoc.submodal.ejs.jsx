@@ -1,9 +1,17 @@
+/* eslint-disable */
+// Necessary to disable esLint for some stuff which would require too much code to fix (like last commas in objects)
+<%
+// List of props used in the template
+var imports = props.imports
+var Name = props.Name
+var name = props.name
+var actions = props.actions
+var states = props.states
+%>
 import React, { Component } from 'react'
 import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
-
 // Auto generated block
 <% for (let importString of imports) { %><%- importString %>
 <% } %>

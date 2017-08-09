@@ -1,4 +1,12 @@
+/* eslint-disable */
+// Necessary to disable esLint for some stuff which would require too much code to fix (like last commas in objects)
 <%
+// List of props used in the template
+var Name = props.Name
+var actions = props.actions
+var devUrl = props.devUrl
+var prodUrl = props.prodUrl
+
 function setDefaultHttpType(actionName) {
   if(actionName.match(/create/)) return 'post'
   if(actionName.match(/update/)) return 'put'

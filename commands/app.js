@@ -3,31 +3,27 @@
 
 module.exports = async function (context) {
   // Learn more about context: https://infinitered.github.io/gluegun/#/context-api.md
+  const { parameters, strings, print, ignite, filesystem } = context
   const ConfigBuilder = require('../dist/ConfBuilder').default
   const configObject = require('App/Config/AutoApp.conf.js')
   const config = new ConfigBuilder(configObject)
 
-  const createTemplates = template => {
-    console.log(template.job)
-    console.log(template.props)
-    console.log('-------------')
-    // await ignite.copyBatch(context, [template.job], template.props)
-  }
-
   for ( let tabName in config.subs ) {
     const tab = config.subs[tabName]
-    // console.log(tab.templates)
-    tab.templates.map(createTemplates)
+    for (let template of tab.templates) {
+      await ignite.copyBatch(context, [template.job], template.props)
+    }
+    for ( let modalHolderHocName in tab.subs ) {
+      const modalHolder = tab.subs[modalHolderHocName]
+      for (let template of modalHolder.templates) {
+        await ignite.copyBatch(context, [template.job], template.props)
+      }
 
-    for ( let tatopHocName in tab.subs ) {
-      const topHoc = tab.subs[tatopHocName]
-      // console.log(topHoc.templates)
-      topHoc.templates.map(createTemplates)
-
-      for ( let hocName in topHoc.subs ) {
-        const hoc = topHoc.subs[hocName]
-        // console.log(hoc.templates)
-        hoc.templates.map(createTemplates)
+      for ( let modalName in modalHolder.subs ) {
+        const modal = modalHolder.subs[modalName]
+        for (let template of modal.templates) {
+          await ignite.copyBatch(context, [template.job], template.props)
+        }
       }
     }
   }

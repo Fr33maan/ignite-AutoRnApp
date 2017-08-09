@@ -1,10 +1,12 @@
+/* eslint-disable */
+// Necessary to disable esLint for some stuff which would require too much code to fix (like last commas in objects)
 <%
-
-function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
+// List of props used in the template
+var Name = props.Name
+var actions = props.actions
+var initialState = props.initialState
 %>
+<% function capitalize(string) {return string.charAt(0).toUpperCase() + string.slice(1)} %>
 
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'

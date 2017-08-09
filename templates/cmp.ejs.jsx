@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-<% for (let importString of imports) { %><%- importString %>
+<% for (let importString of props.imports) { %><%- importString %>
 <% } %>
-export default class <%= Name %> extends Component {
+export default class <%= props.Name %> extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Text><%= Name %> Component</Text>
+        <Text><%= props.Name %> Component</Text>
       </View>
     )
   }
