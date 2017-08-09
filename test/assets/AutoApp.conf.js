@@ -3,7 +3,7 @@ const setStack = true
 const setEditable = true
 const setForm = true
 
-export default {
+module.exports = {
 
   /*
   ## What it does ?

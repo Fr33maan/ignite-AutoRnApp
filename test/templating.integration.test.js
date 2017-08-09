@@ -3,7 +3,7 @@ import fs from 'fs'
 import ejs from 'ejs'
 import R from 'ramda'
 import ConfigBuilder from '../lib/ConfBuilder'
-import AppConfig from './assets/AppConfig.js'
+import AppConfig from './assets/AutoApp.conf.js'
 
 // --------------------------
 // -------- TAB HOC ---------
