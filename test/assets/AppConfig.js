@@ -85,6 +85,10 @@ export default {
     }
   },
 
+  rootUrl: {
+    dev: 'http://localhost:1337',
+    prod: 'http://myprodhost.com'
+  },
   subs : {
     user: {
       model: {

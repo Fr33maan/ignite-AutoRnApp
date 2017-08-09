@@ -112,6 +112,35 @@ test('test redux render for single action (eg. authenticate)', () => {
   expect(true).toBe(true)
 })
 
+// --------------------------
+// ---------- API -----------
+// --------------------------
+// crud hoc
+test('test api render for crud actions (eg. user)', () => {
+  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const hoc          = NewAppConfig.subs.user
+  const props        = hoc.templates[4].props
+
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/api.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  expect(true).toBe(true)
+})
+
+// single action hoc
+test('test api render for single action (eg. authenticate)', () => {
+  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
+  const props        = hoc.templates[4].props
+
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/api.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  console.log(parsed)
+
+  expect(true).toBe(true)
+})
+
+
+
 
 test('Test templates generation', () => {
   const NewAppConfig = new ConfigBuilder(AppConfig)
@@ -137,5 +166,5 @@ test('Test templates generation', () => {
   expect(AuthenticateTemplates[5].job.target).toBe('App/Sagas/User/Auth/sga.Authenticate.js')
 
   // Api
-  expect(AuthenticateTemplates[6].job.target).toBe('App/Services/Auth/api.Authenticate.js')
+  expect(AuthenticateTemplates[6].job.target).toBe('App/Services/API/api.Authenticate.js')
 })
