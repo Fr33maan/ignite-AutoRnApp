@@ -88,7 +88,7 @@ test('test redux render for single action (eg. authenticate)', () => {
 // --------- SAGAS ----------
 // --------------------------
 // crud hoc
-test('test redux render for crud actions (eg. user)', () => {
+test('test sagas render for crud actions (eg. user)', () => {
   const NewAppConfig = new ConfigBuilder(AppConfig)
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[4].props
@@ -100,7 +100,7 @@ test('test redux render for crud actions (eg. user)', () => {
 })
 
 // single action hoc
-test('test redux render for single action (eg. authenticate)', () => {
+test('test sagas render for single action (eg. authenticate)', () => {
   const NewAppConfig = new ConfigBuilder(AppConfig)
   const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
   const props        = hoc.templates[4].props
@@ -134,7 +134,6 @@ test('test api render for single action (eg. authenticate)', () => {
 
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/api.ejs.js', 'utf8')
   const parsed       = ejs.render(ejsTemplate, props, {debug: false})
-  console.log(parsed)
 
   expect(true).toBe(true)
 })
