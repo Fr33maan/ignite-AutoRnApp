@@ -1,4 +1,4 @@
-# AutoRnApp (Auto React Native App)
+# AutoRnApp (Auto React Native App) - WIP
 `AutoRnApp` is a well opinionated ignite boilerplate + generator which aims to save your precious time.
 
 You need to make an App for a customer? Thanks to this generator, you are going to be the faster dev and your quote will be the lower, just because you didn't wasted time copy/pasting your containers/components/redux/sagas/etc....
