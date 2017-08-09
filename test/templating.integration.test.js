@@ -14,7 +14,7 @@ test('test hoc render for crud top HOC (eg. user)', () => {
   const props        = hoc.templates[0].props
 
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/hoc.tab.ejs.jsx', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
   expect(true).toBe(true)
 })
@@ -24,7 +24,7 @@ test('test hoc component render for crud top HOC (eg. user)', () => {
   const props        = hoc.templates[2].props
 
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/cmp.ejs.jsx', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
   expect(true).toBe(true)
 })
@@ -38,7 +38,7 @@ test('test hoc render for modal HOC (eg. auth)', () => {
   const props        = hoc.templates[0].props
 
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/hoc.modal.ejs.jsx', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
   expect(true).toBe(true)
 })
@@ -52,7 +52,7 @@ test('test hoc render for submodal HOC (eg. authenticate)', () => {
   const props        = hoc.templates[0].props
 
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/hoc.submodal.ejs.jsx', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
   expect(true).toBe(true)
 })
@@ -66,8 +66,8 @@ test('test redux render for crud actions (eg. user)', () => {
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[4].props
 
-  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/redux.ejs.js', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/rdx.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
   expect(true).toBe(true)
 })
@@ -75,11 +75,11 @@ test('test redux render for crud actions (eg. user)', () => {
 // single action hoc
 test('test redux render for single action (eg. authenticate)', () => {
   const NewAppConfig = new ConfigBuilder(AppConfig)
-  const hoc          = NewAppConfig.subs.user.subs.auth
+  const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
   const props        = hoc.templates[4].props
 
-  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/redux.ejs.js', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/rdx.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
   expect(true).toBe(true)
 })
@@ -93,8 +93,8 @@ test('test sagas render for crud actions (eg. user)', () => {
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[4].props
 
-  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/saga.ejs.js', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/sga.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
   expect(true).toBe(true)
 })
@@ -105,8 +105,8 @@ test('test sagas render for single action (eg. authenticate)', () => {
   const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
   const props        = hoc.templates[4].props
 
-  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/saga.ejs.js', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/sga.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   // console.log(parsed)
 
   expect(true).toBe(true)
@@ -122,7 +122,7 @@ test('test api render for crud actions (eg. user)', () => {
   const props        = hoc.templates[4].props
 
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/api.ejs.js', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   expect(true).toBe(true)
 })
 
@@ -133,7 +133,7 @@ test('test api render for single action (eg. authenticate)', () => {
   const props        = hoc.templates[4].props
 
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/api.ejs.js', 'utf8')
-  const parsed       = ejs.render(ejsTemplate, props, {debug: false})
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
 
   expect(true).toBe(true)
 })
