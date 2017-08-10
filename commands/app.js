@@ -5,7 +5,7 @@ module.exports = async function (context) {
   // Learn more about context: https://infinitered.github.io/gluegun/#/context-api.md
   const { parameters, strings, print, ignite, filesystem } = context
   const ConfigBuilder = require('../dist/ConfBuilder').default
-  const configObject = require('App/Config/AutoApp.conf.js')
+  const configObject = require(`${process.cwd()}/App/Config/AutoApp.conf.js`)
   const config = new ConfigBuilder(configObject)
 
   for ( let tabName in config.subs ) {
