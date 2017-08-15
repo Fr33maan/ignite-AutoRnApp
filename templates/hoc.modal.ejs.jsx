@@ -13,8 +13,7 @@ import { bindActionCreators } from 'redux'
 
 // Auto generated block
 <% for (let importString of imports) { %><%- importString %>
-<% } %><%#
-%>
+<% } %>
 class <%= Name %>Container extends Component {<%#
 %><% for (let sub of subsNames) { %>
   open<%- sub.Name %> = () => {

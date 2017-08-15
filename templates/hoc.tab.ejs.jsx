@@ -13,9 +13,10 @@ import React, { Component } from 'react'
 import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-// Auto generated imports block
-<% for (let importString of imports) { %><%- importString %><% } %>
 
+// Auto generated imports block
+<% for (let importString of imports) { %><%- importString %>
+<% } %>
 class <%= Name %>Container extends Component {
   <% for (let action of actions) { %>
   <%- action.name %> ( <%- action.args.join(', ') %> ) {
