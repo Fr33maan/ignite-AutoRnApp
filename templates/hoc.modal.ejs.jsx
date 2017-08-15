@@ -10,6 +10,7 @@ import React, { Component } from 'react'
 import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { StackNavigator } from 'react-navigation'
 
 // Auto generated block
 <% for (let importString of imports) { %><%- importString %>
