@@ -1,5 +1,8 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.default=undefined;var _getIterator2=require('babel-runtime/core-js/get-iterator');var _getIterator3=_interopRequireDefault(_getIterator2);var _defineProperty2=require('babel-runtime/helpers/defineProperty');var _defineProperty3=_interopRequireDefault(_defineProperty2);var _regenerator=require('babel-runtime/regenerator');var _regenerator2=_interopRequireDefault(_regenerator);var _stringify=require('babel-runtime/core-js/json/stringify');var _stringify2=_interopRequireDefault(_stringify);var _extends2=require('babel-runtime/helpers/extends');var _extends3=_interopRequireDefault(_extends2);var _classCallCheck2=require('babel-runtime/helpers/classCallCheck');var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=require('babel-runtime/helpers/createClass');var _createClass3=_interopRequireDefault(_createClass2);var _ramda=require('ramda');var _ramda2=_interopRequireDefault(_ramda);
+Object.defineProperty(exports,"__esModule",{value:true});exports.default=undefined;var _getIterator2=require('babel-runtime/core-js/get-iterator');var _getIterator3=_interopRequireDefault(_getIterator2);var _extends2=require('babel-runtime/helpers/extends');var _extends3=_interopRequireDefault(_extends2);var _defineProperty2=require('babel-runtime/helpers/defineProperty');var _defineProperty3=_interopRequireDefault(_defineProperty2);var _regenerator=require('babel-runtime/regenerator');var _regenerator2=_interopRequireDefault(_regenerator);var _stringify=require('babel-runtime/core-js/json/stringify');var _stringify2=_interopRequireDefault(_stringify);var _classCallCheck2=require('babel-runtime/helpers/classCallCheck');var _classCallCheck3=_interopRequireDefault(_classCallCheck2);var _createClass2=require('babel-runtime/helpers/createClass');var _createClass3=_interopRequireDefault(_createClass2);var _ramda=require('ramda');var _ramda2=_interopRequireDefault(_ramda);
 var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
+
+
+
 
 function capitalize(string){
 return string.charAt(0).toUpperCase()+string.slice(1);
@@ -16,19 +19,24 @@ arr.push(result);
 return arr;
 }var
 
+
+
+
 ConfigBuilder=function(){
 
 function ConfigBuilder(config){(0,_classCallCheck3.default)(this,ConfigBuilder);
-this.preConfig=(0,_extends3.default)({},config);
 
-this.config=JSON.parse((0,_stringify2.default)(config));
-this.subs=this.config.subs;
+this.preConfig=JSON.parse((0,_stringify2.default)(config));
+this.config=config;
 
 this.buildConfig();
 }(0,_createClass3.default)(ConfigBuilder,[{key:'buildConfig',value:function buildConfig()
 
 {
+
 var confBuilder=this;
+
+
 
 
 
@@ -47,8 +55,8 @@ confBuilder.createTemplateProps(hoc));case 11:case'end':return _context.stop();}
 
 
 var generators={};
-for(var tabName in this.subs){
-var topHoc=this.subs[tabName];
+for(var tabName in this.config.subs){
+var topHoc=this.config.subs[tabName];
 generators[tabName]=process(topHoc,tabName,0,capitalize(tabName));
 
 for(var modalName in topHoc.subs){
@@ -140,23 +148,22 @@ return[];
 }
 }()).
 map(function(job){return{job:job,props:{}};});
-
 }},{key:'createReduxStates',value:function createReduxStates(
 
 hoc){
-
-
-
 var states=[];
 
 
 if('model'in hoc){
+
 var props=_ramda2.default.unnest(objectToArray(hoc.model,function(prop,propName){return propName;}));
 states=states.concat(props);
 states=states.concat(['doingGet'+hoc.Name,'doneGet'+hoc.Name]);
 states=states.concat(['doingCreate'+hoc.Name,'doneCreate'+hoc.Name]);
 states=states.concat(['doingDestroy'+hoc.Name,'doneDestroy'+hoc.Name]);
+
 states=states.concat(_ramda2.default.unnest(props.map(function(prop){return['doingUpdate'+hoc.Name+capitalize(prop),'doneUpdate'+hoc.Name+capitalize(prop)];})));
+
 
 
 }else if('subs'in hoc){
@@ -164,8 +171,10 @@ states=objectToArray(hoc.subs,function(subHoc,subHocName){return['doing'+capital
 
 
 }else{
+
 states=['doing'+hoc.Name,'done'+hoc.Name].concat(hoc.props);
 }
+
 
 hoc.states=states;
 
@@ -175,13 +184,11 @@ var subNames=objectToArray(hoc.subs,function(sub,subName){return subName;});
 hoc.states=hoc.states.concat(subNames.map(function(subName){return'show'+capitalize(subName)+'Modal';}));
 }
 
+
 hoc.initialState=(0,_stringify2.default)(_ramda2.default.mergeAll(hoc.states.map(function(state){return(0,_defineProperty3.default)({},state,false);})),null,'\t');
 }},{key:'createReduxActions',value:function createReduxActions(
 
 hoc,level){
-
-
-
 var actions=[];
 
 
@@ -203,6 +210,7 @@ args:['id'],
 res:[]});
 
 props.map(function(prop){
+
 actions.push({
 name:'update'+hoc.Name+capitalize(prop),
 args:[prop],
@@ -227,7 +235,6 @@ NAME:camelToSnake(action.name).toUpperCase()});});
 
 }},{key:'createTemplateProps',value:function createTemplateProps(
 
-
 hoc){
 for(var _iterator=hoc.templates,_isArray=Array.isArray(_iterator),_i=0,_iterator=_isArray?_iterator:(0,_getIterator3.default)(_iterator);;){var _ref2;if(_isArray){if(_i>=_iterator.length)break;_ref2=_iterator[_i++];}else{_i=_iterator.next();if(_i.done)break;_ref2=_i.value;}var template=_ref2;
 var jobType=template.job.template.match(/(^\w*)\./)[1];
@@ -235,6 +242,8 @@ this.createTemplateMiscProps(hoc,template.props,jobType);
 this.createTemplateImports(hoc,template.props,jobType);
 }
 }},{key:'createTemplateImports',value:function createTemplateImports(
+
+
 
 
 

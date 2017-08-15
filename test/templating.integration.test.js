@@ -9,7 +9,7 @@ import AppConfig from './assets/AutoApp.conf.js'
 // -------- TAB HOC ---------
 // --------------------------
 test('test hoc render for crud top HOC (eg. user)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[0].props
 
@@ -19,7 +19,7 @@ test('test hoc render for crud top HOC (eg. user)', () => {
   expect(true).toBe(true)
 })
 test('test hoc component render for crud top HOC (eg. user)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[2].props
 
@@ -33,7 +33,7 @@ test('test hoc component render for crud top HOC (eg. user)', () => {
 // ------- MODAL HOC --------
 // --------------------------
 test('test hoc render for modal HOC (eg. auth)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user.subs.auth
   const props        = hoc.templates[0].props
 
@@ -47,7 +47,7 @@ test('test hoc render for modal HOC (eg. auth)', () => {
 // ----- SUB MODAL HOC ------
 // --------------------------
 test('test hoc render for submodal HOC (eg. authenticate)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
   const props        = hoc.templates[0].props
 
@@ -62,7 +62,7 @@ test('test hoc render for submodal HOC (eg. authenticate)', () => {
 // --------------------------
 // crud hoc
 test('test redux render for crud actions (eg. user)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[4].props
 
@@ -74,7 +74,7 @@ test('test redux render for crud actions (eg. user)', () => {
 
 // single action hoc
 test('test redux render for single action (eg. authenticate)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
   const props        = hoc.templates[4].props
 
@@ -89,7 +89,7 @@ test('test redux render for single action (eg. authenticate)', () => {
 // --------------------------
 // crud hoc
 test('test sagas render for crud actions (eg. user)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[4].props
 
@@ -101,7 +101,7 @@ test('test sagas render for crud actions (eg. user)', () => {
 
 // single action hoc
 test('test sagas render for single action (eg. authenticate)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
   const props        = hoc.templates[4].props
 
@@ -117,7 +117,7 @@ test('test sagas render for single action (eg. authenticate)', () => {
 // --------------------------
 // crud hoc
 test('test api render for crud actions (eg. user)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user
   const props        = hoc.templates[4].props
 
@@ -128,7 +128,7 @@ test('test api render for crud actions (eg. user)', () => {
 
 // single action hoc
 test('test api render for single action (eg. authenticate)', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const hoc          = NewAppConfig.subs.user.subs.auth.subs.authenticate
   const props        = hoc.templates[4].props
 
@@ -142,7 +142,7 @@ test('test api render for single action (eg. authenticate)', () => {
 
 
 test('Test templates generation', () => {
-  const NewAppConfig = new ConfigBuilder(AppConfig)
+  const NewAppConfig = new ConfigBuilder(AppConfig).config
   const AuthenticateTemplates = NewAppConfig.subs.user.subs.auth.subs.authenticate.templates
 
   expect(AuthenticateTemplates.length).toBe(7)

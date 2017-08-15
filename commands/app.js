@@ -6,7 +6,7 @@ module.exports = async function (context) {
   const { parameters, strings, print, ignite, filesystem } = context
   const ConfigBuilder = require('../dist/ConfBuilder').default
   const configObject = require(`${process.cwd()}/App/Config/AutoApp.conf.js`)
-  const config = new ConfigBuilder(configObject)
+  const config = new ConfigBuilder(configObject).config
 
   for ( let tabName in config.subs ) {
     const tab = config.subs[tabName]
