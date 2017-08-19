@@ -86,10 +86,10 @@ hoc.level=level;
 hoc.name=hocName;
 hoc.Name=capitalize(hocName);
 hoc.NAME=hocName.toUpperCase(),
-hoc.screenRootDir='App/Screens/'+pathModifier;
-hoc.reduxRootDir='App/Redux/'+pathModifier;
-hoc.sagaRootDir='App/Sagas/'+pathModifier;
-hoc.apiRootDir='App/Services/API';
+hoc.screenRootDir='Screens/'+pathModifier;
+hoc.reduxRootDir='Redux/'+pathModifier;
+hoc.sagaRootDir='Sagas/'+pathModifier;
+hoc.apiRootDir='Services/API';
 hoc.ScreenName=hoc.Name+'Screen';
 hoc.componentRootDir=hoc.screenRootDir+'/_Components';
 hoc.stylesRootDir=hoc.screenRootDir+'/_Styles';
@@ -120,28 +120,28 @@ break;}
 
 hoc.templates=[{
 template:'hoc.'+hocType+'.ejs.jsx',
-target:hoc.screenRootDir+'/'+hoc.Name+'.js'},
+target:'App/'+hoc.screenRootDir+'/'+hoc.Name+'.js'},
 {
 template:'sty.hoc.ejs.js',
-target:hoc.stylesRootDir+'/sty.'+hoc.Name+'.js'},
+target:'App/'+hoc.stylesRootDir+'/sty.'+hoc.Name+'.js'},
 {
 template:'cmp.ejs.jsx',
-target:hoc.componentRootDir+'/cmp.'+hoc.Name+'.js'},
+target:'App/'+hoc.componentRootDir+'/cmp.'+hoc.Name+'.js'},
 {
 template:'sty.cmp.ejs.js',
-target:hoc.componentRootDir+'/_Styles/sty.cmp.'+hoc.Name+'.js'}].
+target:'App/'+hoc.componentRootDir+'/_Styles/sty.cmp.'+hoc.Name+'.js'}].
 
 concat(function(){
 if(hoc.level!==1){
 return[{
 template:'rdx.ejs.js',
-target:hoc.reduxRootDir+'/rdx.'+hoc.Name+'.js'},
+target:'App/'+hoc.reduxRootDir+'/rdx.'+hoc.Name+'.js'},
 {
 template:'sga.ejs.js',
-target:hoc.sagaRootDir+'/sga.'+hoc.Name+'.js'},
+target:'App/'+hoc.sagaRootDir+'/sga.'+hoc.Name+'.js'},
 {
 template:'api.ejs.js',
-target:hoc.apiRootDir+'/api.'+hoc.Name+'.js'}];
+target:'App/'+hoc.apiRootDir+'/api.'+hoc.Name+'.js'}];
 
 }else{
 return[];
@@ -250,14 +250,15 @@ this.createTemplateImports(hoc,template.props,jobType);
 hoc,props,jobType){
 hoc.subHocsList=objectToArray(hoc.subs,function(subHoc){return subHoc.Name;});
 if(jobType==='hoc'){
-props.imports=hoc.subHocsList.map(function(subHoc){return('import '+subHoc+' from \'./'+subHoc+'\'').trim();}).
+
+props.imports=hoc.subHocsList.map(function(subHoc){return hoc.level===0?'import '+subHoc+' from \'./'+subHoc+'/'+subHoc+'\'':('import '+subHoc+' from \'./'+subHoc+'\'').trim();}).
 concat(['import styles from \'./_Styles/sty.'+hoc.Name+'\'']).
 concat(['import '+hoc.Name+'Component from \'./_Components/cmp.'+hoc.Name+'\'']).
 
 
 concat(function(){
 if(hoc.level===0){
-return['import * AS '+hoc.name+'Actions from \''+hoc.reduxRootDir+'/rdx.'+hoc.Name+'\''];
+return['import * as '+hoc.name+'Actions from \''+hoc.reduxRootDir+'/rdx.'+hoc.Name+'\''];
 }else if(hoc.level===2){
 return['import { '+hoc.name+'Request } from \''+hoc.reduxRootDir+'/rdx.'+hoc.Name+'\''];
 }else{

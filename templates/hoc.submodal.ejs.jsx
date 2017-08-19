@@ -9,7 +9,7 @@ var actions = props.actions
 var states = props.states
 %>
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 

@@ -7,7 +7,7 @@ var Name = props.Name
 var subsNames = props.subsNames
 %>
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { View, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { StackNavigator } from 'react-navigation'
@@ -48,7 +48,7 @@ export default StackNavigator({<%#
   navigationOptions: {
     header: {
       left: (
-        <TouchableOpacity onPress={() => window.alert('pop')} ><Image source={Images.closeButton} style={{marginHorizontal: 10}} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => window.alert('pop')} ><Image style={{marginHorizontal: 10}} /></TouchableOpacity>
       ),
       style: {
         backgroundColor: '#3e243f'
