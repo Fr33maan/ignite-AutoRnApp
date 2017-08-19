@@ -88,4 +88,5 @@ module.exports = {
 - generate forms into components
 - test CRUD into stacks
 - make list of files to patch and patch them
-- add updateModel so we also can update model once instead of updating it prop by prop 
+- add updateModel so we also can update model once instead of updating it prop by prop
+- add props assign in components' render if hoc isCrud
