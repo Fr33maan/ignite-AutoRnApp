@@ -4,6 +4,7 @@ const setEditable = true
 const setForm = true
 
 module.exports = {
+  initialRoute : 'User', // Capitalized sub name - used in AppNavigation 
   rootUrl: {
     dev: 'http://localhost:1337',
     prod: 'http://myprodhost.com'
