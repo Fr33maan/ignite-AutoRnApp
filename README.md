@@ -30,6 +30,28 @@ It will generate hoc, components, styles, redux, sagas and apis 100% automatical
 - create a new project -> `ignite new MyAwesomeAutoApp -b AutoRnApp`
 - Create the config file -> `App/Config/AutoApp.conf.js` ([exemple here](https://github.com/l1br3/ignite-AutoRnApp/blob/master/test/assets/AutoApp.conf.js))
 - Run the generator -> `ignite generate app`
+- add `transform-decorators` and `module-resolver` plugins to .babelrc
+```json
+{
+  "plugins": ["transform-decorators",
+    ["module-resolver", {
+      "root": ["./App"],
+      "alias": {
+        "Redux": "./Redux",
+        "Sagas": "./Sagas",
+        "Screens": "./Screens",
+        "Themes": "./Themes",
+        "Components": "./Components",
+        "Containers": "./Containers",
+        "Services": "./Services",
+        "Transforms": "./Transforms",
+        "Lib": "./Lib",
+        "Images": "./Images",
+        "Icons": "Images/Icons",
+        }}
+    ]],
+}
+```
 
 ```js
 // Exemple config file
