@@ -36,7 +36,17 @@ import stateInjector from 'Lib/stateInjector'
       />
     ),
   }
-  <% for (let action of actions) { %>
+  <% if(subsNames && subsNames.length > 0) { %>
+  constructor (props) {
+    super(props)
+    this.state = {
+    <% for (let sub of subsNames) { %>
+      show<%- sub.Name %>Modal: false,<%#
+    %><% } %>
+    }
+  }
+  <% }
+  for (let action of actions) { %>
   <%- action.name %> ( <%- action.args.join(', ') %> ) {
      this.props.actions.<%- action.name %>Request(<%- action.args.join(', ') %>)
   }
@@ -53,6 +63,7 @@ import stateInjector from 'Lib/stateInjector'
         parentProps={this.props}
         <% for (let sub of subsNames) { %><%#
         %>toggle<%- sub.Name %>Modal={this.toggle<%- sub.Name %>Modal}
+        show<%- sub.Name %>Modal={this.state.show<%- sub.Name %>Modal}
         <% } %><% for (let action of actions) { %><%#
         %><%- action.name %>={this.<%- action.name %>}
         <% } %><%#

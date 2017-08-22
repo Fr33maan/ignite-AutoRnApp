@@ -190,10 +190,10 @@ states=states.concat(hoc.props);
 hoc.states=states;
 
 
-if(hoc.level===0){
-var subNames=objectToArray(hoc.subs,function(sub,subName){return subName;});
-hoc.states=hoc.states.concat(subNames.map(function(subName){return'show'+capitalize(subName)+'Modal';}));
-}
+
+
+
+
 
 
 hoc.initialState=(0,_stringify2.default)(_ramda2.default.mergeAll(hoc.states.map(function(state){return(0,_defineProperty3.default)({},state,state.match(/doing|done/)?false:null);})),null,'\t');

@@ -30,6 +30,16 @@ test('test hoc render for top HOC (eg. home)', () => {
   debugParse(parsed)
   expect(true).toBe(true)
 })
+test('test hoc CMP render for top HOC (eg. home)', () => {
+  const NewAppConfig = getConfig()
+  const hoc          = NewAppConfig.subs.home
+  // debugConfig(hoc, 3)
+  const props        = hoc.templates[2].props
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/cmp.ejs.jsx', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
+  debugParse(parsed)
+  expect(true).toBe(true)
+})
 
 // --------------------------
 // ------- MODAL HOC --------
