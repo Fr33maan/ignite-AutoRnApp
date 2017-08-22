@@ -13,7 +13,7 @@ import React, { Component } from 'react'
 import { View, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import icon from 'Icons/faq-icon.png'
+import icon from 'Icons/base_icon.png'
 
 // Auto generated imports block
 <% for (let importString of imports) { %><%- importString %>
@@ -21,11 +21,11 @@ import icon from 'Icons/faq-icon.png'
 class <%= Name %>Container extends Component {
   static navigationOptions = {
     tabBarLabel: '<%- Name %>',
-    tabBarIcon: ({tintColor}) => (
+    tabBarIcon: ({tintColor, focused}) => (
       <Image
         source={icon}
         style={[styles.icon, {tintColor}]}
-        />
+      />
     ),
   }
   <% for (let action of actions) { %>
@@ -42,10 +42,11 @@ class <%= Name %>Container extends Component {
     return (
       <View style={styles.container}>
         <<%= Name %>Component
-        props={this.props}
+        parentProps={this.props}
         <% for (let sub of subsNames) { %><%#
-        %>toggle<%- sub.Name %>Modal={this.toggle<%- sub.Name %>Modal}<%#
-        %><% } %>
+        %>toggle<%- sub.Name %>Modal={this.toggle<%- sub.Name %>Modal}
+        <% } %><% for (let action of actions) { %><%#
+        %><%- action.name %>={this.<%- action.name %>}<% } %>
         />
       </View>
     )

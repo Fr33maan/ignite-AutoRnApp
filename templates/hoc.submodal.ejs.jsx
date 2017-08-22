@@ -26,7 +26,7 @@ class <%= Name %>Container extends Component {
     return (
       <View style={styles.container}>
         <<%= Name %>Component
-        props={this.props}<%#
+        parentProps={this.props}<%#
      %><% for (let action of actions) { %>
         <%- action.name %>={this.<%- action.name %>}<% } %>
         />

@@ -25,7 +25,7 @@ class <%= Name %>Container extends Component {<%#
     return (
       <View style={styles.container}>
         <<%= Name %>Component
-        props={this.props}<%#
+        parentProps={this.props}<%#
      %><% for (let sub of subsNames) { %>
         open<%- sub.Name %>={this.open<%- sub.Name %>}<% } %>
         />
