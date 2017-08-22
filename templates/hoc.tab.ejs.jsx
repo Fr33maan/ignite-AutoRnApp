@@ -11,14 +11,22 @@ var states = props.states
 %>
 import React, { Component } from 'react'
 import { View, Image } from 'react-native'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import icon from 'Icons/base_icon.png'
 
 // Auto generated imports block
 <% for (let importString of imports) { %><%- importString %>
-<% } %>
-class <%= Name %>Container extends Component {
+<% } %><%#
+%><% if (states || actions) { %>
+// stateInjector will connect actions and states to components through mapDispatchToProps / mapStateToProps / bindActionCreators / connect
+import stateInjector from 'Lib/stateInjector'
+@stateInjector(
+  [
+    <%- states.map(state => `'${state}'`).join(',\n\t\t') %>
+  ], //states
+  <%= name %>Actions //actions
+)
+<% } %><%#
+%>class <%= Name %>Container extends Component {
   static navigationOptions = {
     tabBarLabel: '<%- Name %>',
     tabBarIcon: ({tintColor, focused}) => (
@@ -30,7 +38,7 @@ class <%= Name %>Container extends Component {
   }
   <% for (let action of actions) { %>
   <%- action.name %> ( <%- action.args.join(', ') %> ) {
-     this.props.<%- action.name %>(<%- action.args.join(', ') %>)
+     this.props.<%- action.name %>Request(<%- action.args.join(', ') %>)
   }
   <% } %><%#
   %><% for (let sub of subsNames) { %>
@@ -46,22 +54,12 @@ class <%= Name %>Container extends Component {
         <% for (let sub of subsNames) { %><%#
         %>toggle<%- sub.Name %>Modal={this.toggle<%- sub.Name %>Modal}
         <% } %><% for (let action of actions) { %><%#
-        %><%- action.name %>={this.<%- action.name %>}<% } %>
-        />
+        %><%- action.name %>={this.<%- action.name %>}
+        <% } %><%#
+        %>/>
       </View>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    <% for (let state of states) { %><%- state %>: false,
-    <% } %>
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(<%- name %>Actions, dispatch), dispatch }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(<%= Name %>Container)
+export default <%= Name %>Container

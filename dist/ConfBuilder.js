@@ -132,7 +132,7 @@ template:'sty.cmp.ejs.js',
 target:'App/'+hoc.componentRootDir+'/_Styles/sty.cmp.'+hoc.Name+'.js'}].
 
 concat(function(){
-if(hoc.level!==1){
+if(hoc.level!==1||'actions'in hoc||'model'in hoc){
 return[{
 template:'rdx.ejs.js',
 target:'App/'+hoc.reduxRootDir+'/rdx.'+hoc.Name+'.js'},
@@ -166,13 +166,24 @@ states=states.concat(_ramda2.default.unnest(props.map(function(prop){return['doi
 
 
 
-}else if('subs'in hoc){
-states=objectToArray(hoc.subs,function(subHoc,subHocName){return['doing'+capitalize(subHocName),'done'+capitalize(subHocName)];});
+
+}else if('subs'in hoc&&hoc.level===1){
+states=_ramda2.default.unnest(objectToArray(hoc.subs,function(subHoc,subHocName){return['doing'+capitalize(subHocName),'done'+capitalize(subHocName)];}));
 
 
-}else{
+}else if(hoc.level===2){
 
-states=['doing'+hoc.Name,'done'+hoc.Name].concat(hoc.props);
+states=['doing'+hoc.Name,'done'+hoc.Name];
+}
+
+
+if('actions'in hoc){
+states=states.concat(_ramda2.default.unnest(objectToArray(hoc.actions,function(action,actionName){return['doing'+capitalize(actionName),'done'+capitalize(actionName)];})));
+}
+
+
+if('props'in hoc){
+states=states.concat(hoc.props);
 }
 
 
@@ -185,7 +196,7 @@ hoc.states=hoc.states.concat(subNames.map(function(subName){return'show'+capital
 }
 
 
-hoc.initialState=(0,_stringify2.default)(_ramda2.default.mergeAll(hoc.states.map(function(state){return(0,_defineProperty3.default)({},state,false);})),null,'\t');
+hoc.initialState=(0,_stringify2.default)(_ramda2.default.mergeAll(hoc.states.map(function(state){return(0,_defineProperty3.default)({},state,state.match(/doing|done/)?false:null);})),null,'\t');
 }},{key:'createReduxActions',value:function createReduxActions(
 
 hoc,level){
@@ -223,7 +234,25 @@ res:[prop]});
 actions=[{
 name:hoc.name,
 args:hoc.props||[],
-res:hoc.response||[]}];
+res:hoc.response||[],
+type:hoc.type||'get'}];
+
+}
+
+
+if('actions'in hoc){
+
+var singleActions=objectToArray(hoc.actions,function(action,actionName){return(0,_extends3.default)({},
+action,{
+name:actionName,
+args:action.props||[],
+res:action.response||[]});});
+
+
+actions=singleActions.map(function(action){return(0,_extends3.default)({},
+action,{
+Name:capitalize(action.name),
+NAME:camelToSnake(action.name).toUpperCase()});});
 
 }
 
@@ -258,9 +287,15 @@ concat(['import '+hoc.Name+'Component from \'./_Components/cmp.'+hoc.Name+'\''])
 
 concat(function(){
 if(hoc.level===0){
+
 return['import * as '+hoc.name+'Actions from \''+hoc.reduxRootDir+'/rdx.'+hoc.Name+'\''];
 }else if(hoc.level===2){
 return['import { '+hoc.name+'Request } from \''+hoc.reduxRootDir+'/rdx.'+hoc.Name+'\''];
+
+
+}else if('actions'in hoc){
+return['import * as '+hoc.name+'Actions from \''+hoc.reduxRootDir+'/rdx.'+hoc.Name+'\''];
+
 }else{
 return[];
 }
@@ -284,4 +319,5 @@ props.subsNames=hoc.subsNames;
 props.devUrl=this.config.rootUrl.dev;
 props.prodUrl=this.config.rootUrl.prod;
 props.isCrud='model'in hoc;
+props.isForm=hoc.setForm;
 }}]);return ConfigBuilder;}();exports.default=ConfigBuilder;

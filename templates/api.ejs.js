@@ -7,10 +7,11 @@ var actions = props.actions
 var devUrl = props.devUrl
 var prodUrl = props.prodUrl
 
-function setDefaultHttpType(actionName) {
-  if(actionName.match(/create/)) return 'post'
-  if(actionName.match(/update/)) return 'put'
-  if(actionName.match(/delete/)) return 'delete'
+function setDefaultHttpType(action) {
+  if(action.name.match(/create/)) return 'post'
+  if(action.name.match(/update/)) return 'put'
+  if(action.name.match(/delete/)) return 'delete'
+  if('type' in action) return action.type
 
   return 'get'
 }
@@ -41,7 +42,7 @@ export default {
 
     return {
       <% for (let action of actions) {
-      var defaultHttpType = setDefaultHttpType(action.name)
+      var defaultHttpType = setDefaultHttpType(action)
       %>
       <%- action.name %>: (args, additionalHeaders, httpType='<%- defaultHttpType %>') => {
         let headers = defaultHeaders
