@@ -35,7 +35,7 @@ import stateInjector from 'Lib/stateInjector'
   if ('actions' in props && props.actions.length > 0) {
   for (let action of props.actions) { %>
   <%- action.name %> = (<%- action.args.join(', ') %>) => {
-     this.props.<%- action.name %>Request(<%- action.args.join(', ') %>)
+     this.props.actions.<%- action.name %>Request(<%- action.args.join(', ') %>)
   }
   <% }} %>
   render () {
