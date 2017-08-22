@@ -68,7 +68,6 @@ module.exports = {
               response: ['jwt'],
               setForm, // Component generation - not released
             },
-
           }
         }
       }
@@ -90,3 +89,5 @@ module.exports = {
 - make list of files to patch and patch them
 - add updateModel so we also can update model once instead of updating it prop by prop
 - add props assign in components' render if hoc isCrud
+- add miscActions in every sub
+- add onOpen to subs
