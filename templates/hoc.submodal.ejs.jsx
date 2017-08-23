@@ -22,7 +22,7 @@ import { bindActionCreators } from 'redux'
 import stateInjector from 'Lib/stateInjector'
 @stateInjector(
   [
-    <%- states.map(state => `'${state}'`).join(',\n\t') %>
+    <%- states.map(state => `'${state}'`).join(',\n\t\t') %>
   ], //states
   [<%= name %>Request] //actions
 )

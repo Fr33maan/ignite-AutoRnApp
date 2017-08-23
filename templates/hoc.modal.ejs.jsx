@@ -21,7 +21,7 @@ import { StackNavigator } from 'react-navigation'
 import stateInjector from 'Lib/stateInjector'
 @stateInjector(
   [
-    <%- states.map(state => `'${state}'`).join(',\n\t') %>
+    <%- states.map(state => `'${state}'`).join(',\n\t\t') %>
   ], //states
   <%= name %>Actions //actions
 )
