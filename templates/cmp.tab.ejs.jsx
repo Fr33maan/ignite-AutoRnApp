@@ -10,17 +10,17 @@ import React, { Component } from 'react'
 import { View, Text, Modal } from 'react-native'
 import RoundedButton from 'Components/RoundedButton'
 <% for (let importString of imports) { %><%- importString %>
-<% } %>
-
-<% if(subsNames && subsNames.length > 0) {
+<% }
+if(subsNames && subsNames.length > 0) {
+for (let sub of subsNames) { %>import <%- sub.Name %>Container from 'Screens/<%- Name %>/<%- sub.Name %>/<%- sub.Name %>'
+<% }}
+if(subsNames && subsNames.length > 0) {
 for (let sub of subsNames) { %>
 class <%- sub.Name %>Modal extends Component {
   render() {
     return (
       <View>
-        <Text>
-          <%- sub.Name %> Modal
-        </Text>
+        <<%- sub.Name %>Container />
       </View>
     )
   }

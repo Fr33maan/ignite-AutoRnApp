@@ -35,7 +35,7 @@ test('test hoc CMP render for top HOC (eg. home)', () => {
   const hoc          = NewAppConfig.subs.home
   // debugConfig(hoc, 3)
   const props        = hoc.templates[2].props
-  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/cmp.ejs.jsx', 'utf8')
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/cmp.tab.ejs.jsx', 'utf8')
   const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   debugParse(parsed)
   expect(true).toBe(true)
@@ -79,6 +79,17 @@ test('test hoc render for modal HOC without subs and with additional actions onl
   expect(true).toBe(true)
 })
 
+test('test hoc CMP render for modal HOC (eg. Auth)', () => {
+  const NewAppConfig = getConfig()
+  const hoc          = NewAppConfig.subs.home.subs.auth
+  // debugConfig(hoc, 3)
+  const props        = hoc.templates[2].props
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/cmp.modal.ejs.jsx', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
+  debugParse(parsed)
+  expect(true).toBe(true)
+})
+
 // --------------------------
 // ----- SUB MODAL HOC ------
 // -------- LEVEL 2 ---------
@@ -96,15 +107,14 @@ test('test hoc render for submodal HOC (eg. home/auth/authenticate)', () => {
 test('test hoc CMP render for submodal HOC (eg. home/auth/authenticate)', () => {
   const NewAppConfig = getConfig()
   const hoc          = NewAppConfig.subs.home.subs.auth.subs.authenticate
-  debugConfig(hoc.templates, 3)
+  // debugConfig(hoc.templates, 3)
   const props        = hoc.templates[2].props
 
-  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/hoc.submodal.ejs.jsx', 'utf8')
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/cmp.submodal.ejs.jsx', 'utf8')
   const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   debugParse(parsed)
   expect(true).toBe(true)
 })
-
 // --------------------------
 // --------- REDUX ----------
 // --------------------------
