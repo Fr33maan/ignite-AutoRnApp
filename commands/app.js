@@ -48,7 +48,7 @@ module.exports = async function (context) {
   // Patch Navigation/AppNavigation.js
   function pacthAppNavigationFile (tabName) {
     const appNavFilePath = `${process.cwd()}/App/Navigation/AppNavigation.js`
-    const importToAdd = `import ${tabName} from '../Screens/${tabName}/${tabName}'`
+    const importToAdd = `import ${tabName} from 'Screens/${tabName}/${tabName}'`
     const routeToAdd = `  ${tabName}: { screen: ${tabName} },`
 
     if (!filesystem.exists(appNavFilePath)) {

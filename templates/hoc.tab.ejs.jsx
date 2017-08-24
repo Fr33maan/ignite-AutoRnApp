@@ -11,7 +11,7 @@ var states = props.states
 %>
 import React, { Component } from 'react'
 import { View, Image } from 'react-native'
-import icon from 'Icons/base_icon.png'
+import Images from 'Images'
 
 // Auto generated imports block
 <% for (let importString of imports) { %><%- importString %>
@@ -31,7 +31,7 @@ import stateInjector from 'Lib/stateInjector'
     tabBarLabel: '<%- Name %>',
     tabBarIcon: ({tintColor, focused}) => (
       <Image
-        source={icon}
+        source={Images.base_icon}
         style={[styles.icon, {tintColor}]}
       />
     ),
