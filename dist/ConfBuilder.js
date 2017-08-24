@@ -125,7 +125,7 @@ target:'App/'+hoc.screenRootDir+'/'+hoc.Name+'.js'},
 template:'sty.hoc.ejs.js',
 target:'App/'+hoc.stylesRootDir+'/sty.'+hoc.Name+'.js'},
 {
-template:'cmp.ejs.jsx',
+template:'cmp.'+hocType+'.ejs.jsx',
 target:'App/'+hoc.componentRootDir+'/cmp.'+hoc.Name+'.js'},
 {
 template:'sty.cmp.ejs.js',
@@ -320,4 +320,5 @@ props.devUrl=this.config.rootUrl.dev;
 props.prodUrl=this.config.rootUrl.prod;
 props.isCrud='model'in hoc;
 props.isForm=hoc.setForm;
+props.navs=hoc.navs;
 }}]);return ConfigBuilder;}();exports.default=ConfigBuilder;
