@@ -59,12 +59,13 @@ import stateInjector from 'Lib/stateInjector'
   export default StackNavigator({<%#
   %><% for (let sub of subsNames) { %>
     <%- sub.Name %>: {screen: <%- sub.Name %>},<% } %>
+    <% if(props.includeInStack){ %><%- Name %>: {screen: <%- Name %>Container}<% } %>
   },{
     cardStyle: {
       opacity: 1,
       backgroundColor: '#3e243f'
     },
-    initialRouteName: '<%- subsNames[0].Name %>',
+    initialRouteName:<% if(props.includeInStack) { %>'<%- Name %>'<% } else { %>'<%- subsNames[0].Name %>'<% } %>,
     headerMode: 'none',
     navigationOptions: {
       header: {
