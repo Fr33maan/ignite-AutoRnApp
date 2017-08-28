@@ -4,7 +4,7 @@ const setEditable = true
 const setForm = true
 
 module.exports = {
-  initialRoute : 'User', // Capitalized sub name - used in AppNavigation
+  initialRoute : 'Home', // Capitalized sub name - used in AppNavigation
   rootUrl: {
     dev: 'http://localhost:1337',
     prod: 'http://myprodhost.com'
@@ -83,50 +83,51 @@ module.exports = {
       },
       subs: {
         auth: {
-          actions: {
-            isAuth: {
-              props: ['jwt'],
-              response: ['isAuth']
-            },
-            logOut: {},
-          },
-          props: ['isAuth'],
           subs: {
             authenticate: { // StackNavigator and imports
-              navs: ['register', 'recover'], //  navigation actions
+              actions: {
+                isAuth: {
+                  props: ['jwt'],
+                  response: ['isAuth']
+                },
+                logOut: {},
+              },
+              navs: ['Register', 'Recover'], //  navigation actions
               props: ['email', 'password', 'jwt'], // states used in form and submitted to the saga/redux action // might be a dupe with model
               response: ['jwt'],
               type: 'post',
               setForm, // Component generation - not released
             },
             register: {
-              navs: ['authenticate', 'recover'], // navigation actions
+              navs: ['Authenticate', 'Recover'], // navigation actions
               props: ['username', 'email', 'password'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
               type: 'post',
               setForm, // Component generation - not released
             },
             recover: {
-              navs: ['authenticate', 'register'], //  navigation actions
+              navs: ['Authenticate', 'Register'], //  navigation actions
               props: ['email'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
               type: 'post',
               setForm, // Component generation - not released
             },
+
           }
         },
         user: {
+          includeInStack: true,
           model: {
               username: 'string',
               password: 'password',
               email: 'email',
               jwt: 'string',
-              pictureUrl: 'picture',
-              userId: 'string'
+              pictureUrl: 'picture'
           },
           setEditable, // Will generate actions and actionStates
         },
         shop: {
+          includeInStack: true,
           actions: {
             getCredit: {
               response: ['credit']
