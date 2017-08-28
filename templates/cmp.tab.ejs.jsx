@@ -13,18 +13,6 @@ import RoundedButton from 'Components/RoundedButton'
 <% }
 if(subsNames && subsNames.length > 0) {
 for (let sub of subsNames) { %>import <%- sub.Name %>Container from 'Screens/<%- Name %>/<%- sub.Name %>/<%- sub.Name %>'
-<% }}
-if(subsNames && subsNames.length > 0) {
-for (let sub of subsNames) { %>
-class <%- sub.Name %>Modal extends Component {
-  render() {
-    return (
-      <View>
-        <<%- sub.Name %>Container />
-      </View>
-    )
-  }
-}
 <% }} %>
 
 export default class <%= Name %> extends Component {
@@ -50,7 +38,7 @@ export default class <%= Name %> extends Component {
           <Modal
             visible={show<%- sub.Name %>Modal}
             onRequestClose={toggle<%- sub.Name %>Modal}>
-            <<%- sub.Name %>Modal />
+            <<%- sub.Name %>Container />
           </Modal>
         <% }} %>
       </View>

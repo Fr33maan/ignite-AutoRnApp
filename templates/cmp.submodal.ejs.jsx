@@ -12,6 +12,10 @@ import RoundedButton from 'Components/RoundedButton'
 <% for (let importString of imports) { %><%- importString %>
 <% } %>
 export default class <%= Name %> extends Component {
+  <% if (navs && navs.length > 0) {
+  for (let nav of navs) { %>
+  navTo<%- nav %> = () => {this.props.parentProps.navigation.navigate('<%- nav %>')}
+  <% }} %>
   render () {
     const {
       <%- states.join(',\n\t\t\t') %>
@@ -22,7 +26,7 @@ export default class <%= Name %> extends Component {
         <Text><%= props.Name %> Component</Text>
         <% if (navs && navs.length > 0) {
         for (let nav of navs) { %>
-          <RoundedButton/>
+          <RoundedButton onPress={this.navTo<%- nav %>} text="<%- nav %>"/>
         <% }} %>
       </View>
     )

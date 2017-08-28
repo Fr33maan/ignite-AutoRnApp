@@ -26,13 +26,8 @@ import stateInjector from 'Lib/stateInjector'
   <%= name %>Actions //actions
 )
 <% } %><%#
-%>class <%= Name %>Container extends Component {
-%><% for (let sub of subsNames) { %>
-  navTo<%- sub.Name %> = () => {
-    this.props.navigation.navigate('<%- sub.Name %>')
-  }
-  <% }
-  if ('actions' in props && props.actions.length > 0) {
+%>class <%= Name %>Container extends Component { <%
+if ('actions' in props && props.actions.length > 0) {
   for (let action of props.actions) { %>
   <%- action.name %> = (<%- action.args.join(', ') %>) => {
      this.props.actions.<%- action.name %>Request(<%- action.args.join(', ') %>)
@@ -42,9 +37,7 @@ import stateInjector from 'Lib/stateInjector'
     return (
       <View style={styles.container}>
         <<%= Name %>Component
-        parentProps={this.props}<%#
-      %><% for (let sub of subsNames) { %>
-        navTo<%- sub.Name %>={this.navTo<%- sub.Name %>}<% } %>
+        parentProps={this.props}
         <% for (let action of props.actions) { %><%#
         %><%- action.name %>={this.<%- action.name %>}
         <% } %><%#
