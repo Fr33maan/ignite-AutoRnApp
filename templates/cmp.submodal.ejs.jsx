@@ -4,6 +4,9 @@ var Name = props.Name
 var imports = props.imports
 var subsNames = props.subsNames
 var navs = props.navs
+var actions = props.actions
+var actionsNames = actions.map(action => action.name)
+
 states = states.concat(props.name)
 %>
 import React, { Component } from 'react'
@@ -20,7 +23,11 @@ export default class <%= Name %> extends Component {
     const {
       <%- states.join(',\n\t\t\t') %>
     } = this.props.parentProps
-
+    <% if(actions) { %>
+    const {
+      <%- actionsNames.join(',\n\t\t\t') %>
+    } = this.props
+    <% } %>
     return (
       <View style={styles.container}>
         <Text><%= props.Name %> Component</Text>
