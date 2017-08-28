@@ -5,8 +5,8 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    marginTop: Metrics.statusBar,
     backgroundColor: Colors.background,
+    <% if(!props.isStackComponentStyle) { %>marginTop: Metrics.statusBar,<% } %>
   },
   icon: {
     width: '100%',
