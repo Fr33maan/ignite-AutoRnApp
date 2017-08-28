@@ -24,7 +24,7 @@ import stateInjector from 'Lib/stateInjector'
   [
     <%- states.map(state => `'${state}'`).join(',\n\t\t') %>
   ], //states
-  [<%= name %>Request] //actions
+  [<%= Name %>Actions] //actions
 )
 <% } %><%#
 %>class <%= Name %>Container extends Component {
