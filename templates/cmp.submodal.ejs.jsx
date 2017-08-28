@@ -6,8 +6,6 @@ var subsNames = props.subsNames
 var navs = props.navs
 var actions = props.actions
 var actionsNames = actions.map(action => action.name)
-
-states = states.concat(props.name)
 %>
 import React, { Component } from 'react'
 import { View, Text, Modal } from 'react-native'
