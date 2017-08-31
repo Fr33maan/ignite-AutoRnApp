@@ -16,6 +16,7 @@ module.exports = async function (context) {
     const tab = config.subs[tabName]
     patcher.pacthAppNavigationFile(tab.Name)
     patchReducersIfNecessary(tab)
+    patchSagasIfNecessary(tab)
 
     // Create files from templates and props
     for (let template of tab.templates) {
@@ -26,6 +27,7 @@ module.exports = async function (context) {
     for ( let modalHolderHocName in tab.subs ) {
       const modalHolder = tab.subs[modalHolderHocName]
       patchReducersIfNecessary(modalHolder)
+      patchSagasIfNecessary(modalHolder)
 
       // Create files from templates and props
       for (let template of modalHolder.templates) {
@@ -36,6 +38,7 @@ module.exports = async function (context) {
       for ( let modalName in modalHolder.subs ) {
         const modal = modalHolder.subs[modalName]
         patchReducersIfNecessary(modal)
+        patchSagasIfNecessary(modal)
 
         // Create files from templates and props
         for (let template of modal.templates) {
@@ -64,9 +67,11 @@ module.exports = async function (context) {
     }
   }
 
-
-  // Patch files
-  // Sagas/index.js
+  function patchSagasIfNecessary (hoc) {
+    if(hoc.actions.length > 0) {
+      patcher.patchSagasIndex(hoc)
+    }
+  }
 
   return
 }

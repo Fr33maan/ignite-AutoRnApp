@@ -9,7 +9,7 @@ var devUrl = props.devUrl
 var prodUrl = props.prodUrl
 %>
 import { call, put, takeLatest } from 'redux-saga/effects'
-import * as <%- Name %>Redux from 'Redux/rdx.<%- Name %>'
+import * as <%- Name %>Redux from '<%- props.reduxRootDir %>/rdx.<%- Name %>'
 import api from 'API/api.<%- Name %>'
 
 const sagas = []
