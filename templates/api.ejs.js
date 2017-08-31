@@ -24,13 +24,13 @@ You can override for each action: headers, args and http request type (get by de
 import apisauce from 'apisauce'
 
 const env = process.env.NODE_ENV
-const devUrl = <%- devUrl %>
-const prodUrl = <%- prodUrl %>
+const devUrl = '<%- devUrl %>'
+const prodUrl = '<%- prodUrl %>'
 const rootUrl = env === 'production' ? prodUrl : devUrl
 let defaultHeaders = {}
 
 // Will try to find out default headers in the same file
-try {defaultHeaders = require('./defaultHeaders')}catch(e){}
+try {defaultHeaders = require('../defaultHeaders')}catch(e){}
 
 export default {
   create<%- Name %>Api: rootUrl => {
@@ -51,7 +51,7 @@ export default {
         }
 
         return api[httpType]('<%- action.name %>', args, headers)
-      }<% } %>
+      },<% } %>
     }
   }
 }
