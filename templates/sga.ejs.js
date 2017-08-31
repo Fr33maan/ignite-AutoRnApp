@@ -9,15 +9,15 @@ var devUrl = props.devUrl
 var prodUrl = props.prodUrl
 %>
 import { call, put, takeLatest } from 'redux-saga/effects'
-import * as <%- Name %>Redux from '../Redux/rx.<%- Name %>'
-import api from '../Services/API/api.<%- Name %>'
+import * as <%- Name %>Redux from 'Redux/rdx.<%- Name %>'
+import api from 'API/api.<%- Name %>'
 
 const sagas = []
-<% for( let action of actions ) { %>
+<% for( let action of actions ) {%>
 sagas.push(takeLatest(<%- Name %>Redux.<%- Name %>Types.<%- action.NAME %>_REQUEST, function * (api, action) {
-  const { <%- action.args.join() %> } = action
+  <% if(action.args.length > 0) { %> const { <%- action.args.join(', ') %> } = action <% } %>
   // make the call to the api
-  const response = yield call(api.<%- action.name %>, <%- action.args.join() %>)
+  const response = yield call(api.<%- action.name %><% if(action.args.length > 0) { %>, <%- action.args.join(', ') %> <% } %>)
 
   if (response.ok) {
     yield put(<%- Name %>Redux.<%- action.name %>Success(response.data))
