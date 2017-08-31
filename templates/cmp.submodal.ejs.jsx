@@ -6,10 +6,19 @@ var subsNames = props.subsNames
 var navs = props.navs
 var actions = props.actions
 var actionsNames = actions.map(action => action.name)
+
+var formAction = false
+for (let action of actions) {
+  if (action.isForm) {
+    formAction = action
+    break
+  }
+}
 %>
 import React, { Component } from 'react'
 import { View, Text, Modal } from 'react-native'
 import RoundedButton from 'Components/RoundedButton'
+<% if (formAction) { %>import { Form, Control } from 'react-redux-form/native' <% } %>
 <% for (let importString of imports) { %><%- importString %>
 <% } %>
 export default class <%= Name %> extends Component {
@@ -29,6 +38,13 @@ export default class <%= Name %> extends Component {
     return (
       <View style={styles.container}>
         <Text><%= props.Name %> Component</Text>
+        <% if(formAction) { %>
+          <Form model="<%- formAction.name %>" onSubmit={<%- formAction.name %>}>
+          <% for (let argName of formAction.args) { %>
+            <Control.TextInput model=".<%- argName %>" />
+          <% } %>
+          </Form>
+        <% } %>
         <% if (navs && navs.length > 0) {
         for (let nav of navs) { %>
           <RoundedButton onPress={this.navTo<%- nav %>} text="<%- nav %>"/>

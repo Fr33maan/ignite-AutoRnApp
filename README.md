@@ -113,3 +113,4 @@ module.exports = {
 - add props assign in components' render if hoc isCrud
 - add miscActions in every sub
 - add onOpen to subs
+- don't create reducers for isForm actions
