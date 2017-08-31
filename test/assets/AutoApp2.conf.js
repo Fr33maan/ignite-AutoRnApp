@@ -1,7 +1,6 @@
-const setTab = true
-const setStack = true
-const setEditable = true
-const setForm = true
+const isEditable = true
+const isForm = true
+const includeInStack = true
 
 module.exports = {
   initialRoute : 'Home', // Capitalized sub name - used in AppNavigation
@@ -16,8 +15,9 @@ module.exports = {
           response: ['selection']
         },
         createMatch: {
-          props: ['match'],
-          type: 'post'
+          props: ['user1', 'user2'],
+          type: 'post',
+          isForm,
         }
       },
       props: ['selection', 'credit'],
@@ -96,27 +96,27 @@ module.exports = {
               props: ['email', 'password', 'jwt'], // states used in form and submitted to the saga/redux action // might be a dupe with model
               response: ['jwt'],
               type: 'post',
-              setForm, // Component generation - not released
+              isForm,
             },
             register: {
               navs: ['Authenticate', 'Recover'], // navigation actions
               props: ['username', 'email', 'password'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
               type: 'post',
-              setForm, // Component generation - not released
+              isForm,
             },
             recover: {
               navs: ['Authenticate', 'Register'], //  navigation actions
               props: ['email'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
               type: 'post',
-              setForm, // Component generation - not released
+              isForm,
             },
 
           }
         },
         user: {
-          includeInStack: true,
+          includeInStack,
           model: {
               username: 'string',
               password: 'password',
@@ -124,10 +124,10 @@ module.exports = {
               jwt: 'string',
               pictureUrl: 'picture'
           },
-          setEditable, // Will generate actions and actionStates
+          isEditable,
         },
         shop: {
-          includeInStack: true,
+          includeInStack,
           actions: {
             getCredit: {
               response: ['credit']
