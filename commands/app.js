@@ -67,7 +67,6 @@ module.exports = async function (context) {
 
   // Patch files
   // Sagas/index.js
-  // Redux/index.js
 
   return
 }
