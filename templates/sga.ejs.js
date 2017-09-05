@@ -15,7 +15,7 @@ import api from 'API/api.<%- Name %>'
 const sagas = []
 <% for( let action of actions ) {%>
 sagas.push(takeLatest(<%- Name %>Redux.<%- Name %>Types.<%- action.NAME %>_REQUEST, function * (api, action) {
-  <% if(action.args.length > 0) { %> const { <%- action.args.join(', ') %> } = action <% } %>
+  <% if(action.args.length > 0) { %>const { <%- action.args.join(', ') %> } = action <% } %>
   // make the call to the api
   const response = yield call(api.<%- action.name %><% if(action.args.length > 0) { %>, <%- action.args.join(', ') %> <% } %>)
 
