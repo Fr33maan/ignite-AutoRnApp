@@ -23,7 +23,7 @@ import stateInjector from 'Lib/stateInjector'
   [
     <%- states.map(state => `'${state}'`).join(',\n\t\t') %>
   ], //states
-  <%= name %>Actions //actions
+  <% if(actions.length > 0) { %><%= name %>Actions //actions <% } %>
 )
 <% } %><%#
 %>class <%= Name %>Container extends Component {
