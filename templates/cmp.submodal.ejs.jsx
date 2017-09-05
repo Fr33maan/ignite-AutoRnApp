@@ -42,6 +42,7 @@ export default class <%= Name %> extends Component {
         <% if(formAction) { %>
           <Form model="<%- formAction.name %>Form" onSubmit={<%- formAction.name %>}>
           <% for (let argName of formAction.args) { %>
+            <Text><%- argName %></Text>
             <Control.TextInput model=".<%- argName %>" />
           <% } %>
             <Button title="<%- formAction.Name %>" onPress={() => this.props.parentProps.dispatch(actions.submit('<%- formAction.name %>Form'))}  />
