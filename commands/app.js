@@ -4,15 +4,19 @@
 module.exports = async function (context) {
   // Learn more about context: https://infinitered.github.io/gluegun/#/context-api.md
   const { parameters, strings, print, ignite, filesystem } = context
-  const ConfigBuilder = require('../dist/ConfBuilder').default
   const configObject = require(`${process.cwd()}/App/Config/AutoApp.conf.js`)
+
+  const ConfigBuilder = require('../dist/ConfBuilder').default
   const config = new ConfigBuilder(configObject).config
-  const patterns = require('../lib/patterns')
+  const FilePatcher = require('../dist/FilePatcher').default
+  const patcher = new FilePatcher(context)
 
   // Each tab (level 0)
   for ( let tabName in config.subs ) {
     const tab = config.subs[tabName]
-    pacthAppNavigationFile(tab.Name)
+    patcher.pacthAppNavigationFile(tab.Name)
+    patchReducersIfNecessary(tab)
+    patchSagasIfNecessary(tab)
 
     // Create files from templates and props
     for (let template of tab.templates) {
@@ -22,6 +26,8 @@ module.exports = async function (context) {
     // Each modalHolder hoc (level 1)
     for ( let modalHolderHocName in tab.subs ) {
       const modalHolder = tab.subs[modalHolderHocName]
+      patchReducersIfNecessary(modalHolder)
+      patchSagasIfNecessary(modalHolder)
 
       // Create files from templates and props
       for (let template of modalHolder.templates) {
@@ -31,6 +37,8 @@ module.exports = async function (context) {
       // Each stack item (level 2)
       for ( let modalName in modalHolder.subs ) {
         const modal = modalHolder.subs[modalName]
+        patchReducersIfNecessary(modal)
+        patchSagasIfNecessary(modal)
 
         // Create files from templates and props
         for (let template of modal.templates) {
@@ -40,35 +48,30 @@ module.exports = async function (context) {
     }
   }
 
-
-  // Patch files
-  // Sagas/index.js
-  // Redux/index.js
-
-  // Patch Navigation/AppNavigation.js
-  function pacthAppNavigationFile (tabName) {
-    const appNavFilePath = `${process.cwd()}/App/Navigation/AppNavigation.js`
-    const importToAdd = `import ${tabName} from '../Screens/${tabName}/${tabName}'`
-    const routeToAdd = `  ${tabName}: { screen: ${tabName} },`
-
-    if (!filesystem.exists(appNavFilePath)) {
-      const msg = `No '${appNavFilePath}' file found.  Can't insert screen.`
-      print.error(msg)
-      process.exit(1)
+  function patchReducersIfNecessary (hoc) {
+    let formAction = false
+    for (let action of hoc.actions) {
+      if (action.isForm) {
+        formAction = action
+        break
+      }
+    }
+    // If one of the action (or the only action) needs a form we patch reducers with form
+    if (formAction) {
+      patcher.patchReducersWithForm(formAction)
     }
 
-    // insert screen import
-    ignite.patchInFile(appNavFilePath, {
-      after: patterns[patterns.constants.PATTERN_IMPORTS],
-      insert: importToAdd
-    })
-
-    // insert screen route
-    ignite.patchInFile(appNavFilePath, {
-      after: patterns[patterns.constants.PATTERN_ROUTES],
-      insert: routeToAdd
-    })
+    // The hoc could also contains other actions or maybe doesn't have any form action so we import it as a whole reducer
+    if ((hoc.actions.length > 1 || !formAction) && (hoc.level !== 1 && !hoc.includeInStack)) {
+      patcher.patchReducers(hoc)
+    }
   }
-  
+
+  function patchSagasIfNecessary (hoc) {
+    if(hoc.actions.length > 0) {
+      patcher.patchSagasIndex(hoc)
+    }
+  }
+
   return
 }

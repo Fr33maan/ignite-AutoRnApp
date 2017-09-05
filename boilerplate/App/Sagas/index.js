@@ -1,17 +1,13 @@
-/* ------------- Types ------------- */
-
-/* ------------- Sagas ------------- */
-
-/* ------------- API ------------- */
-
-// The API we use is only used from Sagas, so we create it here and pass along
-// to the sagas which need it.
+import { takeLatest } from 'redux-saga/effects'
+import API from '../Services/Api'
+import DebugConfig from '../Config/DebugConfig'
+// AutoRnApp sagas imports
 
 /* ------------- Connect Types To Sagas ------------- */
-
-// Patch the yield by importing sagas and spreading it into the yield array
-export default function * root () {
+const sagas = function * root () {
   yield [
-
+    // AutoRnApp sagas effects
   ]
 }
+
+export default sagas

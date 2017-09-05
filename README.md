@@ -30,6 +30,28 @@ It will generate hoc, components, styles, redux, sagas and apis 100% automatical
 - create a new project -> `ignite new MyAwesomeAutoApp -b AutoRnApp`
 - Create the config file -> `App/Config/AutoApp.conf.js` ([exemple here](https://github.com/l1br3/ignite-AutoRnApp/blob/master/test/assets/AutoApp.conf.js))
 - Run the generator -> `ignite generate app`
+- add `transform-decorators-legacy` and `module-resolver` plugins to .babelrc
+```json
+{
+  "plugins": ["transform-decorators-legacy",
+    ["module-resolver", {
+      "root": ["./App"],
+      "alias": {
+        "Redux": "./Redux",
+        "Sagas": "./Sagas",
+        "Screens": "./Screens",
+        "Themes": "./Themes",
+        "Components": "./Components",
+        "Containers": "./Containers",
+        "Services": "./Services",
+        "Transforms": "./Transforms",
+        "Lib": "./Lib",
+        "Images": "./Images",
+        "Icons": "Images/Icons",
+        }}
+    ]],
+}
+```
 
 ```js
 // Exemple config file
@@ -54,19 +76,19 @@ module.exports = {
               navs: ['register', 'recover'], //  navigation actions
               props: ['email', 'password', 'jwt'], // states used in form and submitted to the saga/redux action // might be a dupe with model
               response: ['jwt'],
-              setForm, // Component generation - not released
+              isForm, // Component generation - not released
             },
             register: {
               navs: ['authenticate', 'recover'], // navigation actions
               props: ['username', 'email', 'password'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
-              setForm, // Component generation - not released
+              isForm, // Component generation - not released
             },
             recover: {
               navs: ['authenticate', 'register'], //  navigation actions
               props: ['email'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
-              setForm, // Component generation - not released
+              isForm, // Component generation - not released
             },
           }
         }
@@ -84,10 +106,10 @@ module.exports = {
 ---
 ## TODO
 - generate tests
-- generate forms into components
+- generate forms into components (need to fine tune and manage action dispatching)
 - test CRUD into stacks
-- make list of files to patch and patch them
+- make list of files to patch and patch them (should be done, make a review with full testing)
 - add updateModel so we also can update model once instead of updating it prop by prop
-- add props assign in components' render if hoc isCrud
-- add miscActions in every sub
-- add onOpen to subs
+- add props assign in components' render if hoc isCrud (done for all components I think ?)
+- add onOpen to subs (what is it ?)
+- don't create reducers for isForm actions (secondary as forms reducers won't overwrite original reducers)
