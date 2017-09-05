@@ -16,9 +16,10 @@ for (let action of actions) {
 }
 %>
 import React, { Component } from 'react'
-import { View, Text, Modal } from 'react-native'
+import { View, Text, Modal, Button } from 'react-native'
 import RoundedButton from 'Components/RoundedButton'
-<% if (formAction) { %>import { Form, Control } from 'react-redux-form/native' <% } %>
+<% if (formAction) { %>import { Form, Control } from 'react-redux-form/native'
+import { actions } from 'react-redux-form' <% } %>
 <% for (let importString of imports) { %><%- importString %>
 <% } %>
 export default class <%= Name %> extends Component {
@@ -43,6 +44,7 @@ export default class <%= Name %> extends Component {
           <% for (let argName of formAction.args) { %>
             <Control.TextInput model=".<%- argName %>" />
           <% } %>
+            <Button title="<%- formAction.Name %>" onPress={() => this.props.parentProps.dispatch(actions.submit('<%- formAction.name %>'))}  />
           </Form>
         <% } %>
         <% if (navs && navs.length > 0) {
