@@ -20,9 +20,9 @@ sagas.push(takeLatest(<%- Name %>Redux.<%- Name %>Types.<%- action.NAME %>_REQUE
   const response = yield call(api.<%- action.name %><% if(action.args.length > 0) { %>, <%- action.args.join(', ') %> <% } %>)
 
   if (response.ok) {
-    yield put(<%- Name %>Redux.<%- action.name %>Success(response.data))
+    yield put(<%- Name %>Redux.default.<%- action.name %>Success(response.data))
   } else {
-    yield put(<%- Name %>Redux.<%- action.name %>Failure())
+    yield put(<%- Name %>Redux.default.<%- action.name %>Failure())
   }
 }, api))
 <% } %>
