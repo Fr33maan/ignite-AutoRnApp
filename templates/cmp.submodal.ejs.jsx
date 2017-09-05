@@ -40,11 +40,11 @@ export default class <%= Name %> extends Component {
       <View style={styles.container}>
         <Text><%= props.Name %> Component</Text>
         <% if(formAction) { %>
-          <Form model="<%- formAction.name %>" onSubmit={<%- formAction.name %>}>
+          <Form model="<%- formAction.name %>Form" onSubmit={<%- formAction.name %>}>
           <% for (let argName of formAction.args) { %>
             <Control.TextInput model=".<%- argName %>" />
           <% } %>
-            <Button title="<%- formAction.Name %>" onPress={() => this.props.parentProps.dispatch(actions.submit('<%- formAction.name %>'))}  />
+            <Button title="<%- formAction.Name %>" onPress={() => this.props.parentProps.dispatch(actions.submit('<%- formAction.name %>Form'))}  />
           </Form>
         <% } %>
         <% if (navs && navs.length > 0) {
