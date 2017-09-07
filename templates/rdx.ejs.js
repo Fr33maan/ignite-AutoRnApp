@@ -22,7 +22,7 @@ let createdActions
   createdActions = createActions({
     <%= action.name %>Request: <%- JSON.stringify(action.args) %>,
     <%= action.name %>Success: <%- JSON.stringify(action.res) %>,
-    <%= action.name %>Failure: null,
+    <%= action.name %>Failure: ["error"],
   })
 
   MainTypes = {...createdActions.Types, ...MainTypes}
@@ -45,10 +45,12 @@ const reducers = {}
 
 <% for (let action of actions) { %>
   export const <%- action.name %>Request = state => state.merge({ doing<%- action.Name %>: true })
-  export const <%- action.name %>Failure = state => state.merge({
-    doing<%- action.Name %>: false,
-    error<%- action.Name %>: true,
-  })
+  export const <%- action.name %>Failure = (state, action) => {
+    return state.merge({
+      doing<%- action.Name %>: false,
+      error<%- action.Name %>: action.error,
+    })
+  }
   export const <%- action.name %>Success = (state, action) => {
     let statusState = {
       doing<%- action.Name %>: false,
