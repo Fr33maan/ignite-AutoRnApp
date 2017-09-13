@@ -30,7 +30,7 @@ import stateInjector from 'Lib/stateInjector'
 %>class <%= Name %>Container extends Component { <%
 if ('actions' in props && props.actions.length > 0) {
   for (let action of props.actions) { %>
-  <%- action.name %> = (<%- action.args.join(', ') %>) => {
+  <%- action.name %> = ({ <%- action.args.join(', ') %>}) => {
      this.props.actions.<%- action.name %>Request(<%- action.args.join(', ') %>)
   }
   <% }} %>

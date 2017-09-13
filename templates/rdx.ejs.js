@@ -21,7 +21,7 @@ let createdActions
 <% for (let action of actions) { %>
   createdActions = createActions({
     <%= action.name %>Request: <%- JSON.stringify(action.args) %>,
-    <%= action.name %>Success: <%- JSON.stringify(action.res) %>,
+    <%= action.name %>Success: ["data"],
     <%= action.name %>Failure: ["error"],
   })
 
@@ -59,7 +59,7 @@ const reducers = {}
 
     let propState = {
     <% if(action.res){ for(let prop of action.res) { %>
-        <%- prop %>: action.<%- prop %>,
+        <%- prop %>: action.data.<%- prop %>,
     <% }} %>
     }
 

@@ -48,7 +48,7 @@ import stateInjector from 'Lib/stateInjector'
   }
   <% }
   for (let action of actions) { %>
-  <%- action.name %> ( <%- action.args.join(', ') %> ) {
+  <%- action.name %> ({ <%- action.args.join(', ') %> }) {
      this.props.actions.<%- action.name %>Request(<%- action.args.join(', ') %>)
   }
   <% } %><%#
