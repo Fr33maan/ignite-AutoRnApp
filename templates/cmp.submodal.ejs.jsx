@@ -18,7 +18,8 @@ for (let action of actions) {
 import React, { Component } from 'react'
 import { View, Text, Modal, Button } from 'react-native'
 import RoundedButton from 'Components/RoundedButton'
-<% if (formAction) { %>import { Form, Control } from 'react-redux-form/native'
+import validators from 'Lib/formValidators'
+<% if (formAction) { %>import { Form, Control, Errors } from 'react-redux-form/native'
 import { actions } from 'react-redux-form' <% } %>
 <% for (let importString of imports) { %><%- importString %>
 <% } %>
@@ -38,12 +39,29 @@ export default class <%= Name %> extends Component {
     <% } %>
     return (
       <View style={styles.container}>
-        <Text><%= props.Name %> Component</Text>
+        <Text><%= Name %> Component</Text>
+        {error<%- Name %> && (<Text>{error<%- Name %>}</Text>)}
         <% if(formAction) { %>
           <Form model="<%- formAction.name %>Form" onSubmit={<%- formAction.name %>}>
           <% for (let argName of formAction.args) { %>
-            <Text><%- argName %></Text>
-            <Control.TextInput model=".<%- argName %>" />
+            <Control.TextInput
+              model=".<%- argName %>"
+              placeholder="<%- argName %>"
+              validators={{
+                isRequired: validators.isRequired('<%- argName %>').fn,
+                <% if(argName === 'email')    { %>isEmail: validators.isEmail('<%- argName %>').fn,<% }
+                   if(argName === 'password') { %>minLength: validators.minLength('<%- argName %>', 6).fn,<% } %>
+              }}
+            />
+            <Errors
+              model="<%- formAction.name %>Form.<%- argName %>"
+              show={{submitFailed: true}}
+              messages={{
+                isRequired: validators.isRequired('<%- argName %>').msg,
+                <% if(argName === 'email')    { %>isEmail: validators.isEmail('<%- argName %>').msg,<% }
+                   if(argName === 'password') { %>minLength: validators.minLength('<%- argName %>', 6).msg,<% } %>
+              }}
+            />
           <% } %>
             <Button title="<%- formAction.Name %>" onPress={() => this.props.parentProps.dispatch(actions.submit('<%- formAction.name %>Form'))}  />
           </Form>

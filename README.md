@@ -18,6 +18,7 @@ It will generate hoc, components, styles, redux, sagas and apis 100% automatical
 - I guarantee that CRUD will work as first level hoc (tabs), I don't guarantee it will work in stacks but it should !
 - Currently only 3 levels are supported. It means that you have tabs with a main screen for each and then you can open as many modal stacks you want into them. Stack Navigation is kept between tabs. If it's not enough for you, open an issue or submit a PR.
 - You define a prodHost and a devHost, they will be used for your APIs depending on `process.env.NODE_ENV`.
+- Generate [React-Redux-Forms](https://davidkpiano.github.io/react-redux-form/docs/guides/react-native.html) with validation
 ---
 ## Important notes
 - **Be carefull** to not generate again the app ! Default behaviour for now is to overwrite everything ! See [this issue](https://github.com/infinitered/ignite/issues/1120).
@@ -76,19 +77,19 @@ module.exports = {
               navs: ['register', 'recover'], //  navigation actions
               props: ['email', 'password', 'jwt'], // states used in form and submitted to the saga/redux action // might be a dupe with model
               response: ['jwt'],
-              isForm, // Component generation - not released
+              isForm, // Will generate a form with props
             },
             register: {
               navs: ['authenticate', 'recover'], // navigation actions
               props: ['username', 'email', 'password'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
-              isForm, // Component generation - not released
+              isForm,
             },
             recover: {
               navs: ['authenticate', 'register'], //  navigation actions
               props: ['email'], // states used in form and submitted to the saga/redux action
               response: ['jwt'],
-              isForm, // Component generation - not released
+              isForm,
             },
           }
         }
@@ -106,7 +107,6 @@ module.exports = {
 ---
 ## TODO
 - generate tests
-- generate forms into components (need to fine tune and manage action dispatching)
 - test CRUD into stacks
 - make list of files to patch and patch them (should be done, make a review with full testing)
 - add updateModel so we also can update model once instead of updating it prop by prop
