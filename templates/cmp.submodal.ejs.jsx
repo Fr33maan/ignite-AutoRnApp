@@ -47,7 +47,9 @@ export default class <%= Name %> extends Component {
             <Control.TextInput
               model=".<%- argName %>"
               placeholder="<%- argName %>"
-              validators={{
+              <%if(argName === 'password') { %>secureTextEntry={true}<% } %>
+              <%#
+              %>validators={{
                 isRequired: validators.isRequired('<%- argName %>').fn,
                 <% if(argName === 'email')    { %>isEmail: validators.isEmail('<%- argName %>').fn,<% }
                    if(argName === 'password') { %>minLength: validators.minLength('<%- argName %>', 6).fn,<% } %>
