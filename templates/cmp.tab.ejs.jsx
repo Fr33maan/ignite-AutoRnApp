@@ -15,9 +15,10 @@ for (let action of actions) {
 }
 %>
 import React, { Component } from 'react'
-import { View, Text, Modal } from 'react-native'
+import { View, Text, Modal, Button } from 'react-native'
+import validators from 'Lib/formValidators'
 import RoundedButton from 'Components/RoundedButton'
-<% if (formAction) { %>import { Form, Control } from 'react-redux-form/native' <% } %>
+<% if (formAction) { %>import { Form, Control, Errors } from 'react-redux-form/native' <% } %>
 <% for (let importString of imports) { %><%- importString %>
 <% }
 if(subsNames && subsNames.length > 0) {
@@ -43,13 +44,9 @@ export default class <%= Name %> extends Component {
       <View style={styles.container}>
         <Text><%= props.Name %> Component</Text>
         <% if(formAction) { %>
-          <Form model="<%- formAction.name %>" onSubmit={<%- formAction.name %>}>
-          <% for (let argName of formAction.args) { %>
-            <Control.TextInput model=".<%- argName %>" />
-          <% } %>
-          </Form>
-        <% } %>
-        <% if(subsNames && subsNames.length > 0) {
+        <%- include(props.dirname + '/../templates/partials/form.ejs.jsx', {props: props, formAction: formAction}) %>
+        <% }
+        if(subsNames && subsNames.length > 0) {
         for (let sub of subsNames) { %>
           <RoundedButton onPress={toggle<%- sub.Name %>Modal}>
             Open <%- sub.Name %> Modal

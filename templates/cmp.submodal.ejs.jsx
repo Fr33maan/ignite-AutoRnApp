@@ -42,36 +42,11 @@ export default class <%= Name %> extends Component {
         <Text><%= Name %> Component</Text>
         {error<%- Name %> && (<Text>{error<%- Name %>}</Text>)}
         <% if(formAction) { %>
-          <Form model="<%- formAction.name %>Form" onSubmit={<%- formAction.name %>}>
-          <% for (let argName of formAction.args) { %>
-            <Control.TextInput
-              model=".<%- argName %>"
-              placeholder="<%- argName %>"
-              <%if(argName === 'password') { %>secureTextEntry={true}<% } %>
-              <%#
-              %>validators={{
-                isRequired: validators.isRequired('<%- argName %>').fn,
-                <% if(argName === 'email')    { %>isEmail: validators.isEmail('<%- argName %>').fn,<% }
-                   if(argName === 'password') { %>minLength: validators.minLength('<%- argName %>', 6).fn,<% } %>
-              }}
-            />
-            <Errors
-              model="<%- formAction.name %>Form.<%- argName %>"
-              show={{submitFailed: true}}
-              messages={{
-                isRequired: validators.isRequired('<%- argName %>').msg,
-                <% if(argName === 'email')    { %>isEmail: validators.isEmail('<%- argName %>').msg,<% }
-                   if(argName === 'password') { %>minLength: validators.minLength('<%- argName %>', 6).msg,<% } %>
-              }}
-            />
-          <% } %>
-            <Button title="<%- formAction.Name %>" onPress={() => this.props.parentProps.dispatch(actions.submit('<%- formAction.name %>Form'))}  />
-          </Form>
-        <% } %>
-        <% if (navs && navs.length > 0) {
+        <%- include(props.dirname + '/../templates/partials/form.ejs.jsx', {props: props, formAction: formAction}) %>
+        <% }
+        if (navs && navs.length > 0) {
         for (let nav of navs) { %>
-          <RoundedButton onPress={this.navTo<%- nav %>} text="<%- nav %>"/>
-        <% }} %>
+        <RoundedButton onPress={this.navTo<%- nav %>} text="<%- nav %>"/><% }} %>
       </View>
     )
   }
