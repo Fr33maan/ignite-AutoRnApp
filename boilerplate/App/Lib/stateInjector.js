@@ -4,21 +4,28 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
-export default function(stateProps = [], actions = []){
+export default function(reducerName, stateProps = [], actions = []){
 
   function mapStateToProps(state) {
 
     const props = {}
-
     stateProps.map(prop => {
-      props[prop] = state[prop]
+      props[prop] = state[reducerName][prop]
     })
 
     return props
   }
 
   function mapDispatchToProps(dispatch) {
-    return { actions: bindActionCreators(actions, dispatch), dispatch }
+
+    // We only take actions with "Request" in the name as we don't need Failure and Success actions
+    const filteredActions = {}
+    for (let actionName in actions) {
+      const regExp = new RegExp('Request')
+      if(regExp.test(actionName)) filteredActions[actionName] = actions[actionName]
+    }
+
+    return { actions: bindActionCreators(filteredActions, dispatch), dispatch }
   }
 
 

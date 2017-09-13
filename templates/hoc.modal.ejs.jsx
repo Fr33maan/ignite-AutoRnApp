@@ -20,6 +20,7 @@ import { StackNavigator } from 'react-navigation'
 // stateInjector will connect actions and states to components through mapDispatchToProps / mapStateToProps / bindActionCreators / connect
 import stateInjector from 'Lib/stateInjector'
 @stateInjector(
+  '<%- name %>',
   [
     <%- states.map(state => `'${state}'`).join(',\n\t\t') %>
   ], //states
