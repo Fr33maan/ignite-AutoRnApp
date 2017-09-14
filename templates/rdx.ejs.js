@@ -48,13 +48,14 @@ const reducers = {}
   export const <%- action.name %>Failure = (state, action) => {
     return state.merge({
       doing<%- action.Name %>: false,
-      error<%- action.Name %>: action.error,
+      error<%- action.Name %>: action.error || true,
     })
   }
   export const <%- action.name %>Success = (state, action) => {
     let statusState = {
       doing<%- action.Name %>: false,
-      done<%- action.Name %> : true
+      done<%- action.Name %> : true,
+      error<%- action.Name %>: null,
     }
 
     let propState = {
