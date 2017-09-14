@@ -30,7 +30,7 @@ const baseURL = env === 'production' ? prodUrl : devUrl
 let defaultHeaders = {}
 
 // Will try to find out default headers in the same file
-try {defaultHeaders = require('../defaultHeaders')}catch(e){}
+const getDefaultHeaders = async () => {try {return await require('../defaultHeaders')()}catch(e){}}
 
 const create<%- Name %>Api = () => {
 
@@ -43,13 +43,13 @@ const create<%- Name %>Api = () => {
     <% for (let action of actions) {
     var defaultHttpType = setDefaultHttpType(action)
     %>
-    <%- action.name %>: (args, additionalHeaders, httpType='<%- defaultHttpType %>') => {
-      let headers = defaultHeaders
+    <%- action.name %>: async function (args, additionalHeaders, httpType='<%- defaultHttpType %>') {
+      let headers = await getDefaultHeaders()
       if(additionalHeaders && (typeof additionalHeaders === 'object')) {
         headers = {...defaultHeaders, ...additionalHeaders}
       }
 
-      return api[httpType]('<%- action.name %>', args, headers)
+      return api[httpType]('<%- action.name %>', args, {headers})
     },<% } %>
   }
 }
