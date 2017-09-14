@@ -112,3 +112,5 @@ module.exports = {
 - add props assign in components' render if hoc isCrud (done for all components I think ?)
 - add onOpen to subs (what is it ?)
 - forms for modal (submodal holder) when they are included in stack
+- put modal open state in redux state instead of hoc state 
+- put modal nav state into global state (currently we don't see actions in redux)
