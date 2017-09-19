@@ -15,16 +15,21 @@ import Images from 'Images'
 
 // Auto generated imports block
 <% for (let importString of imports) { %><%- importString %>
-<% } %><%#
-%><% if (states || actions) { %>
+<% } 
+if(subsNames.length > 0) { %>import ModalsActions from 'Redux/rdx.modals'<% } 
+if (states || actions) { %>
 // stateInjector will connect actions and states to components through mapDispatchToProps / mapStateToProps / bindActionCreators / connect
 import stateInjector from 'Lib/stateInjector'
 @stateInjector(
-  '<%- name %>',
-  [
-    <%- states.map(state => `'${state}'`).join(',\n\t\t') %>
-  ], //states
-  <% if(actions.length > 0) { %><%= name %>Actions //actions <% } %>
+  [ //states
+    <%- states.map(state => `'${name}.${state}'`).join(',\n\t\t') %>,
+    <% if(subsNames.length > 0) { %><%#
+    %><%- subsNames.map(subName => `'modals.show${subName.Name}Modal'`).join(',\n\t\t') %>
+    <% } %>
+  ], [ //actions
+    <% if(actions.length > 0) { %><%- name %>Actions, 
+    <% } if(subsNames.length > 0) { %>ModalsActions<% } %>
+  ]
 )
 <% } %><%#
 %>class <%= Name %>Container extends Component {
@@ -37,24 +42,9 @@ import stateInjector from 'Lib/stateInjector'
       />
     ),
   }
-  <% if(subsNames && subsNames.length > 0) { %>
-  constructor (props) {
-    super(props)
-    this.state = {
-    <% for (let sub of subsNames) { %>
-      show<%- sub.Name %>Modal: false,<%#
-    %><% } %>
-    }
-  }
-  <% }
-  for (let action of actions) { %>
+  <% for (let action of actions) { %>
   <%- action.name %> (<% if(action.args.length > 0) { %>{ <%- action.args.join(', ') %> }<% } %>) {
      this.props.actions.<%- action.name %>Request(<%- action.args.join(', ') %>)
-  }
-  <% } %><%#
-  %><% for (let sub of subsNames) { %>
-  toggle<%- sub.Name %>Modal = () => {
-    this.setState({ show<%- sub.Name %>Modal: !this.state.show<%- sub.Name %>Modal })
   }
   <% } %>
   render () {
@@ -63,8 +53,8 @@ import stateInjector from 'Lib/stateInjector'
         <<%= Name %>Component
         parentProps={this.props}
         <% for (let sub of subsNames) { %><%#
-        %>toggle<%- sub.Name %>Modal={this.toggle<%- sub.Name %>Modal}
-        show<%- sub.Name %>Modal={this.state.show<%- sub.Name %>Modal}
+        %>toggle<%- sub.Name %>Modal={this.props.actions.toggle<%- sub.Name %>ModalRequest}
+        show<%- sub.Name %>Modal={this.props.show<%- sub.Name %>Modal}
         <% } %><% for (let action of actions) { %><%#
         %><%- action.name %>={this.<%- action.name %>}
         <% } %><%#

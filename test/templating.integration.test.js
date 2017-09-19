@@ -6,8 +6,9 @@ import ConfigBuilder from '../lib/ConfBuilder'
 import AppConfig from './assets/AutoApp2.conf.js'
 
 
-function getConfig () {
-  return new ConfigBuilder(JSON.parse(JSON.stringify(AppConfig))).config
+function getConfig (notConfigOnly) {
+  const config = new ConfigBuilder(JSON.parse(JSON.stringify(AppConfig)))
+  return notConfigOnly ? config : config.config
 }
 function debugConfig (config, depth=null) {
   console.dir(config, {depth})
@@ -21,7 +22,7 @@ function debugParse (parsed) {
 // --------------------------
 test('test hoc render for top HOC (eg. home)', () => {
   const NewAppConfig = getConfig()
-  // debugConfig(NewAppConfig.subs.home, 3)
+  debugConfig(NewAppConfig.subs.home, 3)
   const hoc          = NewAppConfig.subs.home
   const props        = hoc.templates[0].props
 
@@ -247,6 +248,24 @@ test('test api render for additional action (eg. home)', () => {
   expect(true).toBe(true)
 })
 
+// Modals reducer
+test('test modals reducers render', () => {
+  const NewAppConfig = getConfig(true)
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/modalsReducer.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props: {modals: NewAppConfig.modals, initialState: NewAppConfig.modalsInitialState}}, {debug: false})
+  debugParse(parsed)
+
+  expect(true).toBe(true)
+})
+
+test('test modals sagas render', () => {
+  const NewAppConfig = getConfig(true)
+  const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/modalsSagas.ejs.js', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props: {modals: NewAppConfig.modals, initialState: NewAppConfig.modalsInitialState}}, {debug: false})
+  debugParse(parsed)
+
+  expect(true).toBe(true)
+})
 
 test('Test templates generation', () => {
   const NewAppConfig = getConfig()

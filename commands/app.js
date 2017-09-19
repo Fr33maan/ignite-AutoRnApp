@@ -7,13 +7,13 @@ module.exports = async function (context) {
   const configObject = require(`${process.cwd()}/App/Config/AutoApp.conf.js`)
 
   const ConfigBuilder = require('../dist/ConfBuilder').default
-  const config = new ConfigBuilder(configObject).config
+  const mainConfig = new ConfigBuilder(configObject)
   const FilePatcher = require('../dist/FilePatcher').default
   const patcher = new FilePatcher(context)
 
   // Each tab (level 0)
-  for ( let tabName in config.subs ) {
-    const tab = config.subs[tabName]
+  for ( let tabName in mainConfig.config.subs ) {
+    const tab = mainConfig.config.subs[tabName]
     patcher.pacthAppNavigationFile(tab.Name)
     patchReducersIfNecessary(tab)
     patchSagasIfNecessary(tab)
@@ -47,6 +47,29 @@ module.exports = async function (context) {
       }
     }
   }
+  
+  await createModalsReducersAndSagas()
+  
+  async function createModalsReducersAndSagas () {
+
+    // Create the modals reducer
+    await ignite.copyBatch(context, [{
+      template: `modalsReducer.ejs.js`,
+      target:  `App/Redux/rdx.modals.js`
+    }], {
+      modals: mainConfig.modals,
+      initialState: mainConfig.modalsInitialState
+    })
+    
+    await ignite.copyBatch(context, [{
+      template: `modalsSagas.ejs.js`,
+      target:  `App/Sagas/sga.modals.js`
+    }], {
+      modals: mainConfig.modals,
+      initialState: mainConfig.modalsInitialState
+    })
+  }
+
 
   function patchReducersIfNecessary (hoc) {
     let formAction = false
@@ -62,7 +85,7 @@ module.exports = async function (context) {
     }
 
     // The hoc could also contains other actions or maybe doesn't have any form action so we import it as a whole reducer
-    if ((hoc.actions.length > 1 || !formAction) && (hoc.level !== 1 && !hoc.includeInStack)) {
+    if ((hoc.actions.length > 1 || !formAction) && (hoc.level !== 1 || hoc.includeInStack)) {
       patcher.patchReducers(hoc)
     }
   }
@@ -72,6 +95,6 @@ module.exports = async function (context) {
       patcher.patchSagasIndex(hoc)
     }
   }
-
+  
   return
 }
