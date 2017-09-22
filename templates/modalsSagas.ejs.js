@@ -9,12 +9,16 @@ import * as ModalRedux from 'Redux/rdx.modals'
 
 const sagas = []
 <% for( let modal of modals ) { %>
-sagas.push(takeLatest(ModalRedux.ModalsTypes.TOGGLE_<%- modal.NAME %>_MODAL_REQUEST, function * (action) { 
-  try{ 
-    yield put(ModalRedux.default.toggle<%- modal.Name %>ModalSuccess()) 
-  }catch(e){ 
-    console.log(e) 
-  } 
+sagas.push(takeLatest(ModalRedux.ModalsTypes.TOGGLE_<%- modal.NAME %>_MODAL, function * (action) { 
+  // Put here any effects you might want on modal toggle
+}))
+
+sagas.push(takeLatest(ModalRedux.ModalsTypes.OPEN_<%- modal.NAME %>_MODAL, function * (action) { 
+  // Put here any effects you might want on modal open
 })) 
+
+sagas.push(takeLatest(ModalRedux.ModalsTypes.CLOSE_<%- modal.NAME %>_MODAL, function * (action) { 
+  // Put here any effects you might want on modal close
+}))  
 <% } %>
 export default sagas

@@ -53,7 +53,9 @@ import stateInjector from 'Lib/stateInjector'
         <<%= Name %>Component
         parentProps={this.props}
         <% for (let sub of subsNames) { %><%#
-        %>toggle<%- sub.Name %>Modal={this.props.actions.toggle<%- sub.Name %>ModalRequest}
+        %>toggle<%- sub.Name %>Modal={this.props.actions.toggle<%- sub.Name %>Modal}
+        open<%- sub.Name %>Modal={this.props.actions.open<%- sub.Name %>Modal}
+        close<%- sub.Name %>Modal={this.props.actions.close<%- sub.Name %>Modal}
         show<%- sub.Name %>Modal={this.props.show<%- sub.Name %>Modal}
         <% } %><% for (let action of actions) { %><%#
         %><%- action.name %>={this.<%- action.name %>}

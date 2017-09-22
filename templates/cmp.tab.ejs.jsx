@@ -3,7 +3,7 @@ var states = props.states
 var Name = props.Name
 var imports = props.imports
 var subsNames = props.subsNames
-var propsAssigns = subsNames.map(sub => `show${sub.Name}Modal,\n\t\t\ttoggle${sub.Name}Modal`).join(', \n\t\t\t')
+var propsAssigns = subsNames.map(sub => `show${sub.Name}Modal,\n\t\t\ttoggle${sub.Name}Modal,\n\t\t\topen${sub.Name}Modal,\n\t\t\tclose${sub.Name}Modal`).join(', \n\t\t\t')
 var actions = props.actions
 var actionsAssign = actions.map(action => action.name).join(', \n\t\t\t')
 var formAction = false
@@ -48,12 +48,12 @@ export default class <%= Name %> extends Component {
         <% }
         if(subsNames && subsNames.length > 0) {
         for (let sub of subsNames) { %>
-          <RoundedButton onPress={toggle<%- sub.Name %>Modal}>
+          <RoundedButton onPress={open<%- sub.Name %>Modal}>
             Open <%- sub.Name %> Modal
           </RoundedButton>
           <Modal
             visible={show<%- sub.Name %>Modal}
-            onRequestClose={toggle<%- sub.Name %>Modal}>
+            onRequestClose={close<%- sub.Name %>Modal}>
             <<%- sub.Name %>Container />
           </Modal>
         <% }} %>
