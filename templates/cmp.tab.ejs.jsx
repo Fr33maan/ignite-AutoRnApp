@@ -16,6 +16,7 @@ for (let action of actions) {
 %>
 import React, { Component } from 'react'
 import { View, Text, Modal, Button } from 'react-native'
+import { addNavigationHelpers } from 'react-navigation' 
 import validators from 'Lib/formValidators'
 import RoundedButton from 'Components/RoundedButton'
 <% if (formAction) { %>import { Form, Control, Errors } from 'react-redux-form/native' <% } %>
@@ -29,6 +30,7 @@ export default class <%= Name %> extends Component {
   render () {
     // State
     const {
+      nav,
       <%- states.join(',\n\t\t\t') %>
     } = this.props.parentProps
     <% if(subsNames && subsNames.length > 0) { %>
@@ -57,7 +59,14 @@ export default class <%= Name %> extends Component {
           <Modal
             visible={show<%- sub.Name %>Modal}
             onRequestClose={close<%- sub.Name %>Modal}>
-            <<%- sub.Name %>Container />
+            <<%- sub.Name %>Container 
+            navigation={ 
+              addNavigationHelpers({ 
+                dispatch: this.props.parentProps.dispatch, 
+                state: this.props.nav.<%- sub.name %>Nav 
+              }) 
+            }
+            />
           </Modal>
         <% }} %>
       </View>

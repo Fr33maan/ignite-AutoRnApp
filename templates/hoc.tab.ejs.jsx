@@ -22,6 +22,7 @@ if (states || actions) { %>
 import stateInjector from 'Lib/stateInjector'
 @stateInjector(
   [ //states
+    'nav',
     <%- states.map(state => `'${name}.${state}'`).join(',\n\t\t') %>,
     <% if(subsNames.length > 0) { %><%#
     %><%- subsNames.map(subName => `'modals.show${subName.Name}Modal'`).join(',\n\t\t') %>
@@ -52,6 +53,7 @@ import stateInjector from 'Lib/stateInjector'
       <View style={styles.container}>
         <<%= Name %>Component
         parentProps={this.props}
+        nav={this.props.nav}
         <% for (let sub of subsNames) { %><%#
         %>toggle<%- sub.Name %>Modal={this.props.actions.toggle<%- sub.Name %>Modal}
         open<%- sub.Name %>Modal={this.props.actions.open<%- sub.Name %>Modal}

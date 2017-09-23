@@ -17,6 +17,7 @@ module.exports = async function (context) {
     patcher.pacthAppNavigationFile(tab.Name)
     patchReducersIfNecessary(tab)
     patchSagasIfNecessary(tab)
+    patchNavReducerIfNecessary(tab)
 
     // Create files from templates and props
     for (let template of tab.templates) {
@@ -28,6 +29,7 @@ module.exports = async function (context) {
       const modalHolder = tab.subs[modalHolderHocName]
       patchReducersIfNecessary(modalHolder)
       patchSagasIfNecessary(modalHolder)
+      patchNavReducerIfNecessary(modalHolder)
 
       // Create files from templates and props
       for (let template of modalHolder.templates) {
@@ -39,6 +41,7 @@ module.exports = async function (context) {
         const modal = modalHolder.subs[modalName]
         patchReducersIfNecessary(modal)
         patchSagasIfNecessary(modal)
+        patchNavReducerIfNecessary(modal)
 
         // Create files from templates and props
         for (let template of modal.templates) {
@@ -48,8 +51,8 @@ module.exports = async function (context) {
     }
   }
   
+  /* CREATE Modals Reducers and Sagas START */
   await createModalsReducersAndSagas()
-  
   async function createModalsReducersAndSagas () {
 
     // Create the modals reducer
@@ -69,6 +72,7 @@ module.exports = async function (context) {
       initialState: mainConfig.modalsInitialState
     })
   }
+  /* CREATE Modals Reducers and Sagas END */
 
 
   function patchReducersIfNecessary (hoc) {
@@ -93,6 +97,12 @@ module.exports = async function (context) {
   function patchSagasIfNecessary (hoc) {
     if(hoc.actions.length > 0) {
       patcher.patchSagasIndex(hoc)
+    }
+  }
+  
+  function patchNavReducerIfNecessary (hoc) {
+    if(hoc.level === 1 && hoc.subsNames.length > 0){
+      patcher.patchNavReducer(hoc)
     }
   }
   
