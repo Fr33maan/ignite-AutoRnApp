@@ -27,15 +27,18 @@ for (let sub of subsNames) { %>import <%- sub.Name %>Container from 'Screens/<%-
 
 export default class <%= Name %> extends Component {
   render () {
+    // State
     const {
       <%- states.join(',\n\t\t\t') %>
     } = this.props.parentProps
     <% if(subsNames && subsNames.length > 0) { %>
+    // modalProps and actions      
     const {
       <%- propsAssigns %>
     } = this.props
     <% }
     if(actions && actions.length > 0) { %>
+    // Actions
     const {
       <%- actionsAssign %>
     } = this.props

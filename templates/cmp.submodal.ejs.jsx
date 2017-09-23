@@ -29,10 +29,12 @@ export default class <%= Name %> extends Component {
   navTo<%- nav %> = () => {this.props.parentProps.navigation.navigate('<%- nav %>')}
   <% }} %>
   render () {
+    // State
     const {
       <%- states.join(',\n\t\t\t') %>
     } = this.props.parentProps
     <% if(actions) { %>
+    // Actions    
     const {
       <%- actionsNames.join(',\n\t\t\t') %>
     } = this.props
