@@ -85,7 +85,7 @@ module.exports = async function (context) {
     }
 
     // The hoc could also contains other actions or maybe doesn't have any form action so we import it as a whole reducer
-    if ((hoc.actions.length > 1 || !formAction) && (hoc.level !== 1 || hoc.includeInStack)) {
+    if ((hoc.actions.length > 0 || !formAction) && (hoc.level !== 1 || hoc.includeInStack)) {
       patcher.patchReducers(hoc)
     }
   }
