@@ -11,7 +11,7 @@ var actions = props.actions
 %>
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Image } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { DrawerNavigator } from 'react-navigation'
 
 // Auto generated imports block
 <% for (let importString of imports) { %><%- importString %>
@@ -48,29 +48,29 @@ if ('actions' in props && props.actions.length > 0) {
 }
 
 <% if (subsNames.length > 0) { %>
-  // StackNavigator - Here all subs are inserted into a navigator
-  export default StackNavigator({<%#
-  %><% for (let sub of subsNames) { %>
-    <%- sub.Name %>: {screen: <%- sub.Name %>},<% } %>
-    <% if(props.includeInStack){ %><%- Name %>: {screen: <%- Name %>Container}<% } %>
-  },{
-    cardStyle: {
-      opacity: 1,
-      backgroundColor: '#3e243f'
-    },
-    initialRouteName:<% if(props.includeInStack) { %>'<%- Name %>'<% } else { %>'<%- subsNames[0].Name %>'<% } %>,
-    headerMode: 'none',
-    navigationOptions: {
-      header: {
-        left: (
-          <TouchableOpacity onPress={() => window.alert('pop')} ><Image style={{marginHorizontal: 10}} /></TouchableOpacity>
-        ),
-        style: {
-          backgroundColor: '#3e243f'
-        }
+// DrawerNavigator - Here all subs are inserted into a navigator
+export default DrawerNavigator({<%#
+%><% for (let sub of subsNames) { %>
+  <%- sub.Name %>: {screen: <%- sub.Name %>},<% } %>
+  <% if(props.includeInStack){ %><%- Name %>: {screen: <%- Name %>Container}<% } %>
+},{
+  cardStyle: {
+    opacity: 1,
+    backgroundColor: '#3e243f'
+  },
+  initialRouteName:<% if(props.includeInStack) { %>'<%- Name %>'<% } else { %>'<%- subsNames[0].Name %>'<% } %>,
+  headerMode: 'none',
+  navigationOptions: {
+    header: {
+      left: (
+        <TouchableOpacity onPress={() => window.alert('pop')} ><Image style={{marginHorizontal: 10}} /></TouchableOpacity>
+      ),
+      style: {
+        backgroundColor: '#3e243f'
       }
     }
-  })
+  }
+})
 <% } else { %>
 export default <%= Name %>Container
 <% } %>
