@@ -6,7 +6,6 @@ var subsNames = props.subsNames
 var navs = props.navs
 var actions = props.actions
 var actionsNames = actions.map(action => action.name)
-
 var formAction = false
 for (let action of actions) {
   if (action.isForm) {
@@ -26,7 +25,7 @@ import { actions } from 'react-redux-form' <% } %>
 export default class <%= Name %> extends Component {
   <% if (navs && navs.length > 0) {
   for (let nav of navs) { %>
-  navTo<%- nav %> = () => {this.props.parentProps.navigation.navigate('<%- nav %>')}
+  navTo<%- nav.name %> = (<% if(nav.param){ %><%- nav.param %><% } %>) => {this.props.parentProps.navigation.navigate('<%- nav.name %>'<% if(nav.param){ %>, {<%- nav.param %>}<% } %>)}
   <% }} %>
   render () {
     // State
@@ -42,13 +41,16 @@ export default class <%= Name %> extends Component {
     return (
       <View style={styles.container}>
         <Text><%= Name %> Component</Text>
-        {error<%- Name %> && (<Text>{error<%- Name %>}</Text>)}
+        <% if(props.level !== 1) { %>{error<%- Name %> && (<Text>{error<%- Name %>}</Text>)}<% } %>
         <% if(formAction) { %>
         <%- include(props.dirname + '/../templates/partials/form.ejs.jsx', {props: props, formAction: formAction}) %>
         <% }
         if (navs && navs.length > 0) {
         for (let nav of navs) { %>
-        <RoundedButton onPress={this.navTo<%- nav %>} text="<%- nav %>"/><% }} %>
+        <RoundedButton 
+          <% if(nav.param) { %>onPress={() => this.navTo<%- nav.name %>('<%- nav.param %>')} <% }
+          else { %>onPress={this.navTo<%- nav.name %>}<% } %>
+          text="<%- nav.name %>"/><% }} %>
       </View>
     )
   }
