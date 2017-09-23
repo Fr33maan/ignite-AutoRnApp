@@ -80,12 +80,23 @@ test('test hoc render for modal HOC without subs and with additional actions onl
   expect(true).toBe(true)
 })
 
-test('test hoc CMP render for modal HOC (eg. Auth)', () => {
+test('test hoc CMP render for modal holder HOC (eg. Auth)', () => {
   const NewAppConfig = getConfig()
   const hoc          = NewAppConfig.subs.home.subs.auth
   // debugConfig(hoc, 3)
   const props        = hoc.templates[2].props
   const ejsTemplate  = fs.readFileSync(__dirname + '/../templates/cmp.modal.ejs.jsx', 'utf8')
+  const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
+  debugParse(parsed)
+  expect(true).toBe(true)
+})
+
+test('test hoc CMP render for modal holder HOC includedInStack (eg. Messages)', () => {
+  const NewAppConfig = getConfig()
+  const hoc          = NewAppConfig.subs.chat.subs.conversation
+  // debugConfig(hoc, 2)
+  const props        = hoc.templates[2].props
+  const ejsTemplate  = fs.readFileSync(`${__dirname}/../templates/${hoc.templates[2].job.template}`, 'utf8')
   const parsed       = ejs.render(ejsTemplate, {props}, {debug: false})
   debugParse(parsed)
   expect(true).toBe(true)
