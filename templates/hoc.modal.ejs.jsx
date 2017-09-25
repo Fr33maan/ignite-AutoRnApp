@@ -11,7 +11,7 @@ var actions = props.actions
 %>
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Image } from 'react-native'
-import { DrawerNavigator } from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
 
 // Auto generated imports block
 <% for (let importString of imports) { %><%- importString %>
@@ -49,7 +49,7 @@ if ('actions' in props && props.actions.length > 0) {
 
 <% if (subsNames.length > 0) { %>
 // DrawerNavigator - Here all subs are inserted into a navigator
-export default DrawerNavigator({<%#
+export default StackNavigator({<%#
 %><% for (let sub of subsNames) { %>
   <%- sub.Name %>: {screen: <%- sub.Name %>},<% } %>
   <% if(props.includeInStack){ %><%- Name %>: {screen: <%- Name %>Container}<% } %>
