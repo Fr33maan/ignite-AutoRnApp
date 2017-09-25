@@ -101,7 +101,7 @@ module.exports = async function (context) {
   }
   
   function patchNavReducerIfNecessary (hoc) {
-    if(hoc.level === 1 && hoc.subsNames.length > 0){
+    if(hoc.level === 1 && (hoc.subsNames.length > 0 || !hoc.excludeFromStack)){
       patcher.patchNavReducer(hoc)
     }
   }
