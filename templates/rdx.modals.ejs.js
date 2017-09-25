@@ -18,9 +18,9 @@ let MainCreators = {}
 let createdActions
 <% for (let modal of modals) { %>
   createdActions = createActions({
-    toggle<%= modal.Name %>Modal: [],
-    open<%= modal.Name %>Modal: [],
-    close<%= modal.Name %>Modal: [],
+    toggle<%= modal.Name %>Modal: ['params'],
+    open<%= modal.Name %>Modal: ['params'],
+    close<%= modal.Name %>Modal: ['params'],
   })
 
   MainTypes = {
