@@ -26,7 +26,10 @@ if(subsNames && subsNames.length > 0) {
 for (let sub of subsNames) { %>import <%- sub.Name %>Container from 'Screens/<%- Name %>/<%- sub.Name %>/<%- sub.Name %>'
 <% }} %>
 
-export default class <%= Name %> extends Component {
+export default class <%= Name %> extends Component {<%#
+  %><% if (props.navs && props.navs.length > 0) { %><%#
+  %><%- include(props.dirname + '/../templates/partials/navsActions.ejs.jsx', {props: props}) %><%#
+  %><% } %>
   render () {
     // State
     const {
@@ -49,30 +52,31 @@ export default class <%= Name %> extends Component {
       <View style={styles.container}>
         <Text><%= props.Name %> Component</Text>
         <% if(formAction) { %>
-        <%- include(props.dirname + '/../templates/partials/form.ejs.jsx', {props: props, formAction: formAction}) %>
-        <% }
+        <%- include(props.dirname + '/../templates/partials/form.ejs.jsx', {props: props, formAction: formAction}) %><%#
+        %><% }
         if(subsNames && subsNames.length > 0) {
         for (let sub of subsNames) { %>
-          <RoundedButton onPress={open<%- sub.Name %>Modal}>
-            Open <%- sub.Name %> Modal
-          </RoundedButton>
-          <Modal
-            visible={show<%- sub.Name %>Modal}
-            onRequestClose={close<%- sub.Name %>Modal}>
-            <<%- sub.Name %>Container 
-            navigation={ 
-              addNavigationHelpers({ 
-                dispatch: this.props.parentProps.dispatch, 
-                state: this.props.nav.<%- sub.name %>Nav 
-              }) 
-            }
-            screenProps={{
-              modalName: '<%- sub.NAME %>',
-              params: <%- sub.name %>ModalParams
-            }}
-            />
-          </Modal>
-        <% }} %>
+        <RoundedButton onPress={open<%- sub.Name %>Modal}>
+          Open <%- sub.Name %> Modal
+        </RoundedButton>
+        <Modal
+          visible={show<%- sub.Name %>Modal}
+          onRequestClose={close<%- sub.Name %>Modal}>
+          <<%- sub.Name %>Container 
+          navigation={ 
+            addNavigationHelpers({ 
+              dispatch: this.props.parentProps.dispatch, 
+              state: this.props.nav.<%- sub.name %>Nav 
+            }) 
+          }
+          screenProps={{
+            modalName: '<%- sub.NAME %>',
+            params: <%- sub.name %>ModalParams
+          }}
+          />
+        </Modal><%#
+        %><% }} if(props.navs && props.navs.length > 0) { %>
+            <%- include(props.dirname + '/../templates/partials/navsButtons.ejs.jsx', {props: props}) %> <% } %>
       </View>
     )
   }

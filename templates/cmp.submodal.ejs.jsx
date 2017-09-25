@@ -18,15 +18,15 @@ import React, { Component } from 'react'
 import { View, Text, Modal, Button } from 'react-native'
 import RoundedButton from 'Components/RoundedButton'
 import validators from 'Lib/formValidators'
+import ModalActions from 'Redux/rdx.modals'
 <% if (formAction) { %>import { Form, Control, Errors } from 'react-redux-form/native'
 import { actions } from 'react-redux-form' <% } %>
 <% for (let importString of imports) { %><%- importString %>
 <% } %>
-export default class <%= Name %> extends Component {
-  <% if (navs && navs.length > 0) {
-  for (let nav of navs) { %>
-  navTo<%- nav.name %> = (<% if(nav.param){ %><%- nav.param %><% } %>) => {this.props.parentProps.navigation.navigate('<%- nav.name %>'<% if(nav.param){ %>, {<%- nav.param %>}<% } %>)}
-  <% }} %>
+export default class <%= Name %> extends Component {<%#
+  %><% if (navs && navs.length > 0) { %><%#
+  %><%- include(props.dirname + '/../templates/partials/navsActions.ejs.jsx', {props: props}) %><%#
+  %><% } %>
   render () {
     // State
     const {
@@ -40,17 +40,13 @@ export default class <%= Name %> extends Component {
     <% } %>
     return (
       <View style={styles.container}>
-        <Text><%= Name %> Component</Text>
-        <% if(props.level !== 1) { %>{error<%- Name %> && (<Text>{error<%- Name %>}</Text>)}<% } %>
-        <% if(formAction) { %>
-        <%- include(props.dirname + '/../templates/partials/form.ejs.jsx', {props: props, formAction: formAction}) %>
-        <% }
-        if (navs && navs.length > 0) {
-        for (let nav of navs) { %>
-        <RoundedButton 
-          <% if(nav.param) { %>onPress={() => this.navTo<%- nav.name %>('<%- nav.param %>')} <% }
-          else { %>onPress={this.navTo<%- nav.name %>}<% } %>
-          text="<%- nav.name %>"/><% }} %>
+        <Text><%= Name %> Component</Text><%#
+        %><% if(props.level !== 1) { %>{error<%- Name %> && (<Text>{error<%- Name %>}</Text>)}<% }
+        if(formAction) { %>
+        <%- include(props.dirname + '/../templates/partials/form.ejs.jsx', {props: props, formAction: formAction}) %><%#
+        %><% }
+        if (navs && navs.length > 0) { %>
+        <%- include(props.dirname + '/../templates/partials/navsButtons.ejs.jsx', {props: props}) %><% } %>
       </View>
     )
   }
