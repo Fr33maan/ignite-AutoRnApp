@@ -57,7 +57,7 @@ module.exports = async function (context) {
 
     // Create the modals reducer
     await ignite.copyBatch(context, [{
-      template: `modalsReducer.ejs.js`,
+      template: `rdx.modals.ejs.js`,
       target:  `App/Redux/rdx.modals.js`
     }], {
       modals: mainConfig.modals,
@@ -65,7 +65,7 @@ module.exports = async function (context) {
     })
     
     await ignite.copyBatch(context, [{
-      template: `modalsSagas.ejs.js`,
+      template: `sga.modals.ejs.js`,
       target:  `App/Sagas/sga.modals.js`
     }], {
       modals: mainConfig.modals,

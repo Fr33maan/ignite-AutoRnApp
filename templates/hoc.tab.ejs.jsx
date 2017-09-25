@@ -25,7 +25,7 @@ import stateInjector from 'Lib/stateInjector'
     'nav',
     <%- states.map(state => `'${name}.${state}'`).join(',\n\t\t') %>,
     <% if(subsNames.length > 0) { %><%#
-    %><%- subsNames.map(subName => `'modals.show${subName.Name}Modal'`).join(',\n\t\t') %>
+    %><%- subsNames.map(subName => `'modals.show${subName.Name}Modal',\n\t\t'modals.${subName.name}ModalParams'`).join(',\n\t\t') %>
     <% } %>
   ], [ //actions
     <% if(actions.length > 0) { %><%- name %>Actions, 
@@ -59,6 +59,7 @@ import stateInjector from 'Lib/stateInjector'
         open<%- sub.Name %>Modal={this.props.actions.open<%- sub.Name %>Modal}
         close<%- sub.Name %>Modal={this.props.actions.close<%- sub.Name %>Modal}
         show<%- sub.Name %>Modal={this.props.show<%- sub.Name %>Modal}
+        <%- sub.name %>ModalParams={this.props.<%- sub.name %>ModalParams}
         <% } %><% for (let action of actions) { %><%#
         %><%- action.name %>={this.<%- action.name %>}
         <% } %><%#

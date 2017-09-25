@@ -3,7 +3,7 @@ var states = props.states
 var Name = props.Name
 var imports = props.imports
 var subsNames = props.subsNames
-var propsAssigns = subsNames.map(sub => `show${sub.Name}Modal,\n\t\t\ttoggle${sub.Name}Modal,\n\t\t\topen${sub.Name}Modal,\n\t\t\tclose${sub.Name}Modal`).join(', \n\t\t\t')
+var propsAssigns = subsNames.map(sub => `show${sub.Name}Modal,\n\t\t\ttoggle${sub.Name}Modal,\n\t\t\topen${sub.Name}Modal,\n\t\t\tclose${sub.Name}Modal,\n\t\t\t${sub.name}ModalParams`).join(', \n\t\t\t')
 var actions = props.actions
 var actionsAssign = actions.map(action => action.name).join(', \n\t\t\t')
 var formAction = false
@@ -66,6 +66,10 @@ export default class <%= Name %> extends Component {
                 state: this.props.nav.<%- sub.name %>Nav 
               }) 
             }
+            screenProps={{
+              modalName: '<%- sub.NAME %>',
+              params: <%- sub.name %>ModalParams
+            }}
             />
           </Modal>
         <% }} %>
