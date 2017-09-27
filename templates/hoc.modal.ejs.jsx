@@ -29,8 +29,10 @@ import stateInjector from 'Lib/stateInjector'
 <% } %><%#
 %>class <%= Name %>Container extends Component { <%
 if ('actions' in props && props.actions.length > 0) {
-  for (let action of props.actions) { %>
-  <%- action.name %> = ({ <%- action.args.join(', ') %>}) => {
+  for (let action of props.actions) { 
+  const isObjectCreateOrUpdateAction = (action.name === `create${Name}` || action.name === `update${Name}`)
+  %>
+  <%- action.name %> = (<% if(isObjectCreateOrUpdateAction){ %>{ <% } %><%- action.args.join(', ') %><% if(isObjectCreateOrUpdateAction){ %> }<% } %>) => {
      this.props.actions.<%- action.name %>Request(<%- action.args.join(', ') %>)
   }
   <% }} %>
@@ -39,7 +41,10 @@ if ('actions' in props && props.actions.length > 0) {
       <View style={styles.container}>
         <<%= Name %>Component
         parentProps={this.props}
-        <% for (let action of props.actions) { %><%#
+        <% for (let state of states) { %><%#
+        %><%- state %>={this.props.<%- state %>}
+        <% } %><%#
+        %><% for (let action of props.actions) { %><%#
         %><%- action.name %>={this.<%- action.name %>}
         <% } %><%#
         %>/>

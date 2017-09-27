@@ -87,6 +87,11 @@ module.exports = async function (context) {
     if (formAction) {
       patcher.patchReducersWithForm(formAction)
     }
+    
+    // Patch crud forms
+    if (hoc.model && hoc.isEditable) {
+      patcher.patchReducersWithModelForm(hoc)
+    }
 
     // The hoc could also contains other actions or maybe doesn't have any form action so we import it as a whole reducer
     if ((hoc.actions.length > 0 || !formAction) && (hoc.level !== 1 || !hoc.excludeFromStack)) {

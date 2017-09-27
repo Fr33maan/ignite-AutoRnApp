@@ -112,4 +112,3 @@ module.exports = {
 - add props assign in components' render if hoc isCrud (done for all components I think ?)
 - add onOpen to subs (what is it ?)
 - forms for modal (submodal holder) when they are included in stack
-- change includeInStack for excludeFromStack for level 1 hocs

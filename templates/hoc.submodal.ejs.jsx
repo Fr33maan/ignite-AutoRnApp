@@ -38,7 +38,9 @@ import stateInjector from 'Lib/stateInjector'
       <View style={styles.container}>
         <<%= Name %>Component
         parentProps={this.props}<%#
-     %><% for (let action of actions) { %>
+      %><% for (let state of states) { %><%#
+      %><%- state %>={this.props.<%- state %>}<% } %><%#
+      %><% for (let action of actions) { %>
         <%- action.name %>={this.<%- action.name %>}<% } %>
         />
       </View>
