@@ -5,14 +5,14 @@ import AppNavigation from './AppNavigation'
 
 // here is our redux-aware our smart component
 function ReduxNavigation (props) {
-  const { dispatch, nav } = props
+  const { dispatch, tabNav } = props
   const navigation = ReactNavigation.addNavigationHelpers({
     dispatch,
-    state: nav
+    state: tabNav
   })
 
   return <AppNavigation navigation={navigation} />
 }
 
-const mapStateToProps = state => ({ nav: state.nav })
+const mapStateToProps = state => ({ tabNav: state.nav.tabNav })
 export default connect(mapStateToProps)(ReduxNavigation)

@@ -11,6 +11,8 @@ module.exports = async function (context) {
   const FilePatcher = require('../dist/FilePatcher').default
   const patcher = new FilePatcher(context)
 
+  await overwriteBaseFiles()
+
   // Each tab (level 0)
   for ( let tabName in mainConfig.config.subs ) {
     const tab = mainConfig.config.subs[tabName]
@@ -74,6 +76,29 @@ module.exports = async function (context) {
   }
   /* CREATE Modals Reducers and Sagas END */
 
+  async function overwriteBaseFiles () {
+    const fs  = require('fs')
+    const fse = require('fs-extra')
+    
+    const foldersToOverwrite = [
+      'Navigation',
+      'Redux',
+      'Sagas',
+      'Screens',
+      'Services',
+    ]
+    
+    for (let folder of foldersToOverwrite) {
+      const inNodeModule = fs.readdirSync('./', 'utf8').indexOf('ignite-AutoRnApp') > -1
+      const pluginDir    = inNodeModule ? './node_modules/' : './ignite/plugins/'
+      const templateDir  = `${pluginDir}ignite-AutoRnApp/boilerplate/App/${folder}`
+      const destDir      = `./App/${folder}`
+      
+      fse.emptydirSync(destDir)
+      fse.copySync(templateDir, destDir)
+    }
+  }
+  
 
   function patchReducersIfNecessary (hoc) {
     let formAction = false

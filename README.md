@@ -111,4 +111,3 @@ module.exports = {
 - add onOpen to subs (what is it ?)
 - forms for modal (submodal holder) when they are included in stack
 - automatic images exporter
-- app cleaner (rdx.index sga.index etc...)
