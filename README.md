@@ -107,8 +107,6 @@ module.exports = {
 ---
 ## TODO
 - generate tests
-- test CRUD into stacks
 - add updateModel so we also can update model once instead of updating it prop by prop
-- add props assign in components' render if hoc isCrud (done for all components I think ?)
 - add onOpen to subs (what is it ?)
 - forms for modal (submodal holder) when they are included in stack
