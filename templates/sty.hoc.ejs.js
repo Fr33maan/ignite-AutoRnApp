@@ -6,7 +6,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    <% if(!props.isStackComponentStyle) { %>marginTop: Metrics.statusBar,<% } %>
   },
   icon: {
     width: '100%',
