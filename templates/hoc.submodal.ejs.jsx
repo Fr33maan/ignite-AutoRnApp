@@ -37,11 +37,12 @@ import stateInjector from 'Lib/stateInjector'
     return (
       <View style={styles.container}>
         <<%= Name %>Component
-        parentProps={this.props}<%#
-      %><% for (let state of states) { %><%#
-      %><%- state %>={this.props.<%- state %>}<% } %><%#
-      %><% for (let action of actions) { %>
-        <%- action.name %>={this.<%- action.name %>}<% } %>
+        parentProps={this.props}
+        <% for (let state of states) { %><%#
+        %><%- state %>={this.props.<%- state %>}
+        <% } %><%#
+        %><% for (let action of actions) { %><%#
+        %><%- action.name %>={this.<%- action.name %>}<% } %>
         />
       </View>
     )
