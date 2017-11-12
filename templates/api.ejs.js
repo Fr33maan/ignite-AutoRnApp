@@ -20,13 +20,12 @@ function setDefaultHttpType(action) {
 Auto generated file by AutoRnApp
 You can override for each action: headers, args and http request type (get by default)
 */
-
+import AppConfig from 'Config/AppConfig'
 import apisauce from 'apisauce'
 
 const env = process.env.NODE_ENV
-const devUrl = '<%- devUrl %>'
-const prodUrl = '<%- prodUrl %>'
-const baseURL = env === 'production' ? prodUrl : devUrl
+const hostEnv = env === 'production' ? env : 'development'
+const baseURL = AppConfig.hosts[hostEnv]
 let defaultHeaders = {}
 
 // Will try to find out default headers in the same file
