@@ -12,7 +12,7 @@ var states = props.states
 import React, { Component } from 'react'
 import { View, Image } from 'react-native'
 import Images from 'Images'
-import AsyncIcon from 'Components/AsyncIcon'
+import { AsyncIcon, NotifLabel } from 'Components'
 
 // Auto generated imports block
 <% for (let importString of imports) { %><%- importString %>
@@ -36,7 +36,7 @@ import stateInjector from 'Lib/stateInjector'
 <% } %><%#
 %>class <%= Name %>Container extends Component {
   static navigationOptions = {
-    tabBarLabel: '<%- Name %>',
+    tabBarLabel: ({tintColor, focused}) => (<NotifLabel focused={focused} tintColor={tintColor} name={"<%- name %>"}/>),
     tabBarIcon: ({tintColor, focused}) => (<AsyncIcon focused={focused} tintColor={tintColor} iconName={"face"} style={styles.icon}/>)
   }
   <% for (let action of actions) { %>

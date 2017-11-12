@@ -16,6 +16,7 @@ const PrimaryNav = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     showIcon : true,
+    showLabel : true,
     style: {
       backgroundColor: 'red',
     }
