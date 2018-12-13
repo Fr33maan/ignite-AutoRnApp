@@ -20,7 +20,6 @@ import RoundedButton from 'Components/RoundedButton'
 import validators from 'Lib/formValidators'
 import ModalActions from 'Redux/rdx.modals'
 <% if (formAction || props.isEditable) { %>import { Form, Control, Errors } from 'react-redux-form/native'
-import DatePicker from 'react-native-datepicker'
 import { actions } from 'react-redux-form' <% } %>
 <% for (let importString of imports) { %><%- importString %>
 <% } %>
