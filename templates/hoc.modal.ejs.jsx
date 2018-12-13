@@ -61,7 +61,7 @@ export default StackNavigator({<%#
 },{
   cardStyle: {
     opacity: 1,
-    backgroundColor: '#3e243f'
+    backgroundColor: 'transparent'
   },
   initialRouteName:<% if(!props.excludeFromStack) { %>'<%- Name %>'<% } else { %>'<%- subsNames[0].Name %>'<% } %>,
   headerMode: 'float',
